@@ -12,6 +12,16 @@ interface CoinBoardProps {
   onCursoChange: (curso: string) => void;
 }
 
+const CURSO_COLORS: Record<string, string> = {
+  Todos: "#9CA3AF",
+  "1E1": "#3B82F6",
+  "1E2": "#10B981",
+  "2E1": "#FACC15",
+  "2E2": "#F97316",
+  "3E1": "#EF4444",
+  "3E2": "#8B5CF6",
+};
+
 export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardProps) {
   const { coins, loading, refresh } = useRealtimeCoins();
   const [refreshing, setRefreshing] = useState(false);
@@ -28,12 +38,6 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
     selectedCurso === "Todos" || !selectedCurso
       ? coins
       : coins.filter((c) => c.curso === selectedCurso);
-
-  const totalCoins = filteredCoins.reduce((sum, coin) => sum + coin.amount, 0);
-  const avgCoins =
-    filteredCoins.length > 0
-      ? Math.round(totalCoins / filteredCoins.length)
-      : 0;
 
   if (loading && coins.length === 0) {
     return <Loader text="Cargando monedas..." />;
@@ -65,61 +69,79 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
         onSelect={onCursoChange}
       />
 
-      {/* Lista de usuarios */}
-      <FlatList
-        data={filteredCoins}
-        keyExtractor={(item, index) => `${item.id}-${index}`}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor="#61DAFB"
-            colors={["#61DAFB"]}
-          />
-        }
-        renderItem={({ item, index }) => (
-          <AnimatedView
-            animation="fadeInUp"
-            delay={index * 80}
-            className="mb-3"
-          >
-            <Card variant="elevated">
-              <View className="flex-row items-center justify-between">
-                {/* Usuario */}
-                <View className="flex-row items-center flex-1">
-                  <View className="bg-react-blue/20 rounded-full p-3 mr-3">
-                    <Ionicons name="person" size={24} color="#61DAFB" />
-                  </View>
-                  <View className="flex-1">
-                    <Text className="text-white text-lg font-semibold">
-                      {item.username}
-                    </Text>
-                    <Text className="text-gray-400 text-sm">
-                      ID: {item.userId.slice(0, 8)}
-                    </Text>
-                  </View>
-                </View>
+      {/* Mensaje si no hay usuarios en este curso */}
+      {filteredCoins.length === 0 && (
+        <AnimatedView
+          animation="fadeIn"
+          className="items-center justify-center py-12"
+        >
+          <Ionicons name="person-outline" size={64} color="#888" />
+          <Text className="text-gray-400 text-lg mt-4">
+            No hay usuarios en este curso
+          </Text>
+        </AnimatedView>
+      )}
 
-                {/* Curso y monedas */}
-                <View className="items-end flex-row gap-5">
-                  <View className="flex-row items-center">
-                    <AntDesign name="filter" size={16} color="#61DAFB" />
-                    <Text className="text-react-blue text-lg font-bold ml-1">
-                      {item.curso}
-                    </Text>
+      {/* Lista de usuarios */}
+      {filteredCoins.length > 0 && (
+        <FlatList
+          data={filteredCoins}
+          keyExtractor={(item, index) => `${item.id}-${index}`}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor="#61DAFB"
+              colors={["#61DAFB"]}
+            />
+          }
+          renderItem={({ item, index }) => {
+            const color = CURSO_COLORS[item.curso] || "#9CA3AF";
+            return (
+              <AnimatedView
+                animation="fadeInUp"
+                delay={index * 80}
+                className="mb-3"
+              >
+                <Card variant="elevated">
+                  <View className="flex-row items-center justify-between">
+                    {/* Usuario */}
+                    <View className="flex-row items-center flex-1">
+                      <View className={`rounded-full p-3 mr-3`} style={{ backgroundColor: color + "33" }}>
+                        <Ionicons name="person" size={24} color={color} />
+                      </View>
+                      <View className="flex-1">
+                        <Text className="text-white text-lg font-semibold">
+                          {item.username}
+                        </Text>
+                        <Text className="text-gray-400 text-sm">
+                          ID: {item.userId.slice(0, 8)}
+                        </Text>
+                      </View>
+                    </View>
+
+                    {/* Curso y monedas */}
+                    <View className="items-end flex-row gap-5">
+                      <View className="flex-row items-center">
+                        <AntDesign name="inbox" size={16} color={color} />
+                        <Text className="text-lg font-bold ml-1" style={{ color }}>
+                          {item.curso}
+                        </Text>
+                      </View>
+                      <View className="flex-row items-center">
+                        <FontAwesome5 name="coins" size={16} color={color} />
+                        <Text className="text-lg font-bold ml-1" style={{ color }}>
+                          {item.amount}
+                        </Text>
+                      </View>
+                    </View>
                   </View>
-                  <View className="flex-row items-center">
-                    <FontAwesome5 name="coins" size={16} color="#61DAFB" />
-                    <Text className="text-react-blue text-lg font-bold ml-1">
-                      {item.amount}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </Card>
-          </AnimatedView>
-        )}
-      />
+                </Card>
+              </AnimatedView>
+            );
+          }}
+        />
+      )}
     </View>
   );
 }
