@@ -1,11 +1,11 @@
-import React, { useState, useMemo } from "react";
-import { FlatList, View } from "react-native";
-import AnimatedView from "@/components/atoms/AnimatedView";
-import Header from "@/components/molecules/Header";
-import InfoCard from "@/components/molecules/InfoCard";
-import CoinBoard from "@/components/organisms/CoinBoard";
-import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
+import AnimatedView from "@/components/AnimatedView";
+import Header from "@/components/Header";
+import InfoCard from "@/components/InfoCard";
+import CoinBoard from "@/components/CoinBoard";
 import "@/global.css";
+import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
+import React, { useMemo, useState } from "react";
+import { FlatList, View } from "react-native";
 
 type Coin = {
   id: string;
@@ -27,7 +27,9 @@ export default function Index() {
 
   const totalCoins = filteredCoins.reduce((sum, coin) => sum + coin.amount, 0);
   const avgCoins =
-    filteredCoins.length > 0 ? Math.round(totalCoins / filteredCoins.length) : 0;
+    filteredCoins.length > 0
+      ? Math.round(totalCoins / filteredCoins.length)
+      : 0;
 
   return (
     <FlatList

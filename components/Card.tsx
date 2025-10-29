@@ -7,9 +7,14 @@ interface CardProps extends ViewProps {
   className?: string;
 }
 
-export default function Card({ children, variant = "default", className = "", ...props }: CardProps) {
+export default function Card({
+  children,
+  variant = "default",
+  className = "",
+  ...props
+}: CardProps) {
   const baseStyles = "rounded-xl p-4";
-  
+
   const variantStyles = {
     default: "bg-dark-card",
     elevated: "bg-dark-card shadow-lg shadow-black/50",
@@ -17,7 +22,10 @@ export default function Card({ children, variant = "default", className = "", ..
   };
 
   return (
-    <View className={`${baseStyles} ${variantStyles[variant]} ${className}`} {...props}>
+    <View
+      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
+      {...props}
+    >
       {children}
     </View>
   );

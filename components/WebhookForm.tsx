@@ -1,6 +1,6 @@
-import { View } from 'react-native';
-import Input from '@/components/atoms/Input';
-import AnimatedView from '@/components/atoms/AnimatedView';
+import AnimatedView from "@/components/AnimatedView";
+import Input from "@/components/Input";
+import { View } from "react-native";
 
 interface WebhookFormProps {
   fields: string[];
@@ -8,7 +8,11 @@ interface WebhookFormProps {
   maxFields?: number;
 }
 
-export default function WebhookForm({ fields, onFieldChange, maxFields = 10 }: WebhookFormProps) {
+export default function WebhookForm({
+  fields,
+  onFieldChange,
+  maxFields = 10,
+}: WebhookFormProps) {
   return (
     <View>
       {fields.slice(0, maxFields).map((field, index) => (

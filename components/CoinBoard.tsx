@@ -3,9 +3,9 @@ import { View, Text, FlatList, RefreshControl } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Ionicons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
-import AnimatedView from "@/components/atoms/AnimatedView";
-import Card from "@/components/atoms/Card";
-import Loader from "@/components/atoms/Loader";
+import AnimatedView from "@/components/AnimatedView";
+import Card from "@/components/Card";
+import Loader from "@/components/Loader";
 
 type Coin = {
   id: string;
@@ -20,7 +20,10 @@ interface CoinBoardProps {
   onCursoChange: (curso: string) => void;
 }
 
-export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardProps) {
+export default function CoinBoard({
+  selectedCurso,
+  onCursoChange,
+}: CoinBoardProps) {
   const { coins, loading, refresh } = useRealtimeCoins();
   const [refreshing, setRefreshing] = useState(false);
 
@@ -42,9 +45,14 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
 
   if (coins.length === 0) {
     return (
-      <AnimatedView animation="fadeIn" className="items-center justify-center py-12">
+      <AnimatedView
+        animation="fadeIn"
+        className="items-center justify-center py-12"
+      >
         <Ionicons name="wallet-outline" size={64} color="#888" />
-        <Text className="text-gray-400 text-lg mt-4">No hay monedas disponibles</Text>
+        <Text className="text-gray-400 text-lg mt-4">
+          No hay monedas disponibles
+        </Text>
         <Text className="text-gray-500 text-sm mt-2">
           Los datos aparecerán aquí en tiempo real
         </Text>
@@ -84,7 +92,11 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
           />
         }
         renderItem={({ item, index }) => (
-          <AnimatedView animation="fadeInUp" delay={index * 100} className="mb-3">
+          <AnimatedView
+            animation="fadeInUp"
+            delay={index * 100}
+            className="mb-3"
+          >
             <Card variant="elevated">
               <View className="flex-row items-center justify-between">
                 <View className="flex-row items-center flex-1">

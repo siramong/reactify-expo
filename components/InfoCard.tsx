@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity } from 'react-native';
-import Card from '@/components/atoms/Card';
-import { FontAwesome5 } from '@expo/vector-icons';
-import AnimatedView from '@/components/atoms/AnimatedView';
+import AnimatedView from "@/components/AnimatedView";
+import Card from "@/components/Card";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { Text, TouchableOpacity, View } from "react-native";
 
 interface InfoCardProps {
   icon: keyof typeof FontAwesome5.glyphMap;
@@ -12,13 +12,13 @@ interface InfoCardProps {
   delay?: number;
 }
 
-export default function InfoCard({ 
-  icon, 
-  title, 
-  value, 
-  subtitle, 
+export default function InfoCard({
+  icon,
+  title,
+  value,
+  subtitle,
   onPress,
-  delay = 0 
+  delay = 0,
 }: InfoCardProps) {
   const CardContent = (
     <Card variant="elevated" className="mb-3">

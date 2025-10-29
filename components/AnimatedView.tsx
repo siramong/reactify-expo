@@ -28,7 +28,7 @@ export default function AnimatedView({
       animation={animation}
       duration={duration}
       delay={delay}
-      useNativeDriver  // 👈 this is key
+      useNativeDriver // 👈 this is key
       {...props}
     >
       {children}

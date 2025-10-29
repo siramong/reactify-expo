@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { Coin } from '@/services/supabase';
-import Card from '@/components/atoms/Card';
-import { Ionicons } from '@expo/vector-icons';
+import Card from "@/components/Card";
+import { Coin } from "@/services/supabase";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { Text, View } from "react-native";
 
 export default function CoinRow({ coin }: { coin: Coin }) {
   return (

@@ -1,8 +1,7 @@
-import { ScrollView } from 'react-native';
-import Header from '@/components/molecules/Header';
-import WebhookPanel from '@/components/organisms/WebhookPanel';
-import AnimatedView from '@/components/atoms/AnimatedView';
-
+import AnimatedView from "@/components/AnimatedView";
+import Header from "@/components/Header";
+import WebhookPanel from "@/components/WebhookPanel";
+import { ScrollView } from "react-native";
 
 export default function Webhooks() {
   return (
