@@ -1,24 +1,18 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+export default function Layout() {
+return (
+<Tabs screenOptions={{
+tabBarActiveTintColor: '#61DAFB',
+tabBarStyle: { backgroundColor: '#1E1E1E' },
+headerShown: false,
+}}>
+<Tabs.Screen name="index" options={{ title: 'Inicio', tabBarIcon: ({color}) => <Ionicons name="home" color={color} size={22}/> }} />
+<Tabs.Screen name="coins" options={{ title: 'Coins', tabBarIcon: ({color}) => <Ionicons name="logo-usd" color={color} size={22}/> }} />
+<Tabs.Screen name="webhooks" options={{ title: 'Webhooks', tabBarIcon: ({color}) => <Ionicons name="send" color={color} size={22}/> }} />
+<Tabs.Screen name="settings" options={{ title: 'Ajustes', tabBarIcon: ({color}) => <Ionicons name="settings" color={color} size={22}/> }} />
+</Tabs>
+);
 }
