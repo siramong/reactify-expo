@@ -3,7 +3,7 @@ import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
 import AnimatedView from "@/components/atoms/AnimatedView";
 import Card from "@/components/atoms/Card";
 import Loader from "@/components/atoms/Loader";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import { useState } from "react";
 
 export default function CoinBoard() {
@@ -17,14 +17,14 @@ export default function CoinBoard() {
   };
 
   if (loading && coins.length === 0) {
-    return <Loader text="Cargando coins..." />;
+    return <Loader text="Cargando monedas..." />;
   }
 
   if (coins.length === 0) {
     return (
       <AnimatedView animation="fadeIn" className="items-center justify-center py-12">
         <Ionicons name="wallet-outline" size={64} color="#888" />
-        <Text className="text-gray-400 text-lg mt-4">No hay coins disponibles</Text>
+        <Text className="text-gray-400 text-lg mt-4">No hay monedas disponibles</Text>
         <Text className="text-gray-500 text-sm mt-2">Los datos aparecerán aquí en tiempo real</Text>
       </AnimatedView>
     );
@@ -34,7 +34,7 @@ export default function CoinBoard() {
     <View className="mt-2">
       <FlatList
         data={coins}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
         refreshControl={
           <RefreshControl 
             refreshing={refreshing} 
@@ -66,12 +66,12 @@ export default function CoinBoard() {
                 </View>
                 <View className="items-end">
                   <View className="flex-row items-center">
-                    <Ionicons name="logo-usd" size={16} color="#61DAFB" />
+                    <FontAwesome5 name="coins" size={16} color="#61DAFB" />
                     <Text className="text-react-blue text-xl font-bold ml-1">
                       {item.amount}
                     </Text>
                   </View>
-                  <Text className="text-gray-500 text-xs mt-1">coins</Text>
+                  <Text className="text-gray-500 text-xs mt-1">Monedas</Text>
                 </View>
               </View>
             </Card>

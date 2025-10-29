@@ -66,7 +66,7 @@ export default function WebhookPanel() {
         </Text>
       </Card>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} className="pb-20">
         {fields.map((f, i) => (
           <AnimatedView key={i} delay={i * 50}>
             <Input

@@ -13,19 +13,19 @@ export default function Index() {
   const avgCoins = coins.length > 0 ? Math.round(totalCoins / coins.length) : 0;
 
   return (
-    <ScrollView className="flex-1 bg-dark-bg p-4">
+    <ScrollView className="flex-1 bg-dark-bg p-4 pt-10">
       <AnimatedView>
         <Header 
           title="Reactify Dashboard" 
-          subtitle="Monitorea tus coins en tiempo real"
+          subtitle="Monitorea las monedas en tiempo real"
         />
         
         <View className="mb-4">
-          <View className="flex-row space-x-2">
+          <View className="flex-row space-x-2 place-content-between gap-5">
             <View className="flex-1">
               <InfoCard
                 icon="people"
-                title="Usuarios"
+                title="Estudiantes"
                 value={coins.length}
                 subtitle="Total activos"
                 delay={0}
@@ -34,9 +34,9 @@ export default function Index() {
             <View className="flex-1">
               <InfoCard
                 icon="logo-usd"
-                title="Total Coins"
+                title="Total Monedas"
                 value={totalCoins}
-                subtitle={`Promedio: ${avgCoins}`}
+                subtitle={`Promedio Global: ${avgCoins}`}
                 delay={100}
               />
             </View>
