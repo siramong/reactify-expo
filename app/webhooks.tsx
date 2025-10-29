@@ -1,12 +1,19 @@
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
+import Header from '@/components/molecules/Header';
 import WebhookPanel from '@/components/organisms/WebhookPanel';
+import AnimatedView from '@/components/atoms/AnimatedView';
 
 
 export default function Webhooks() {
 return (
-<ScrollView className="flex-1 bg-[#0D1117] p-4">
-<Text className="text-[#61DAFB] text-2xl font-semibold mb-3">Enviar datos al BotGhost Webhook</Text>
+<ScrollView className="flex-1 bg-dark-bg p-4">
+<AnimatedView>
+<Header 
+  title="Webhook BotGhost" 
+  subtitle="Envía datos personalizados a tu bot de Discord"
+/>
 <WebhookPanel />
+</AnimatedView>
 </ScrollView>
 );
 }
