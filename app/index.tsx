@@ -1,11 +1,11 @@
+import React, { useMemo, useState } from "react";
+import { FlatList, View } from "react-native";
 import AnimatedView from "@/components/AnimatedView";
 import Header from "@/components/Header";
 import InfoCard from "@/components/InfoCard";
 import CoinBoard from "@/components/CoinBoard";
-import "@/global.css";
 import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
-import React, { useMemo, useState } from "react";
-import { FlatList, View } from "react-native";
+import "@/global.css";
 
 type Coin = {
   id: string;
@@ -17,11 +17,11 @@ type Coin = {
 
 export default function Index() {
   const { coins } = useRealtimeCoins();
-  const [selectedCurso, setSelectedCurso] = useState<string>("");
+  const [selectedCurso, setSelectedCurso] = useState<string>("Todos");
 
   // Filtrar monedas según el curso seleccionado
   const filteredCoins = useMemo(() => {
-    if (!selectedCurso) return coins;
+    if (selectedCurso === "Todos" || !selectedCurso) return coins;
     return coins.filter((coin: Coin) => coin.curso === selectedCurso);
   }, [coins, selectedCurso]);
 
@@ -36,6 +36,7 @@ export default function Index() {
       className="flex-1 bg-dark-bg p-4 pt-10"
       ListHeaderComponent={
         <AnimatedView>
+          {/* Header e InfoCards */}
           <Header
             title="Reactify Dashboard"
             subtitle="Monitorea las monedas en tiempo real"
@@ -64,7 +65,7 @@ export default function Index() {
             </View>
           </View>
 
-          {/* CoinBoard con dropdown */}
+          {/* CoinBoard */}
           <CoinBoard
             selectedCurso={selectedCurso}
             onCursoChange={setSelectedCurso}

@@ -18,7 +18,6 @@ export default function Layout() {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "600",
-          paddingBottom: 20,
         },
         headerShown: false,
       }}
