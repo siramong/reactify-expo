@@ -5,6 +5,7 @@ export type Coin = {
   userId: string;
   username: string;
   amount: number;
+  curso: string;
   created_at?: string;
 };
 
