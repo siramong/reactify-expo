@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons,MaterialIcons } from '@expo/vector-icons';
 
 
 export default function Layout() {
@@ -18,6 +18,7 @@ export default function Layout() {
       tabBarLabelStyle: {
         fontSize: 12,
         fontWeight: '600',
+        paddingBottom: 20,
       },
       headerShown: false,
     }}>
@@ -35,25 +36,12 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="coins"
-        options={{
-          title: 'Coins',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "logo-usd" : "logo-usd"}
-              color={color}
-              size={24}
-            />
-          )
-        }}
-      />
-      <Tabs.Screen
         name="webhooks"
         options={{
-          title: 'Webhooks',
+          title: 'Discord',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "send" : "send-outline"}
+            <MaterialIcons
+              name={"discord"}
               color={color}
               size={24}
             />

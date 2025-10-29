@@ -1,12 +1,26 @@
+import React, { useState, useMemo } from "react";
 import { View, Text, FlatList, RefreshControl } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import { Ionicons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
 import AnimatedView from "@/components/atoms/AnimatedView";
 import Card from "@/components/atoms/Card";
 import Loader from "@/components/atoms/Loader";
-import { Ionicons, FontAwesome5, AntDesign } from "@expo/vector-icons";
-import { useState } from "react";
 
-export default function CoinBoard() {
+type Coin = {
+  id: string;
+  username: string;
+  userId: string;
+  curso: string;
+  amount: number;
+};
+
+interface CoinBoardProps {
+  selectedCurso: string;
+  onCursoChange: (curso: string) => void;
+}
+
+export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardProps) {
   const { coins, loading, refresh } = useRealtimeCoins();
   const [refreshing, setRefreshing] = useState(false);
 
@@ -16,20 +30,21 @@ export default function CoinBoard() {
     setRefreshing(false);
   };
 
+  // Filtrar monedas según el curso seleccionado
+  const filteredCoins = useMemo(() => {
+    if (!selectedCurso) return coins;
+    return coins.filter((coin: Coin) => coin.curso === selectedCurso);
+  }, [coins, selectedCurso]);
+
   if (loading && coins.length === 0) {
     return <Loader text="Cargando monedas..." />;
   }
 
   if (coins.length === 0) {
     return (
-      <AnimatedView
-        animation="fadeIn"
-        className="items-center justify-center py-12"
-      >
+      <AnimatedView animation="fadeIn" className="items-center justify-center py-12">
         <Ionicons name="wallet-outline" size={64} color="#888" />
-        <Text className="text-gray-400 text-lg mt-4">
-          No hay monedas disponibles
-        </Text>
+        <Text className="text-gray-400 text-lg mt-4">No hay monedas disponibles</Text>
         <Text className="text-gray-500 text-sm mt-2">
           Los datos aparecerán aquí en tiempo real
         </Text>
@@ -39,8 +54,26 @@ export default function CoinBoard() {
 
   return (
     <View className="mt-2">
+      {/* Dropdown de cursos */}
+      <View className="bg-gray-800 rounded-lg mb-3 px-2">
+        <Picker
+          selectedValue={selectedCurso}
+          onValueChange={(value) => onCursoChange(value)}
+          dropdownIconColor="#61DAFB"
+          style={{ color: "white" }}
+        >
+          <Picker.Item label="Todos los cursos" value="" />
+          <Picker.Item label="1E1" value="1E1" />
+          <Picker.Item label="1E2" value="1E2" />
+          <Picker.Item label="2E1" value="2E1" />
+          <Picker.Item label="2E2" value="2E2" />
+          <Picker.Item label="3E1" value="3E1" />
+          <Picker.Item label="3E2" value="3E2" />
+        </Picker>
+      </View>
+
       <FlatList
-        data={coins}
+        data={filteredCoins}
         keyExtractor={(item, index) => `${item.id}-${index}`}
         refreshControl={
           <RefreshControl
@@ -51,11 +84,7 @@ export default function CoinBoard() {
           />
         }
         renderItem={({ item, index }) => (
-          <AnimatedView
-            animation="fadeInUp"
-            delay={index * 100}
-            className="mb-3"
-          >
+          <AnimatedView animation="fadeInUp" delay={index * 100} className="mb-3">
             <Card variant="elevated">
               <View className="flex-row items-center justify-between">
                 <View className="flex-row items-center flex-1">

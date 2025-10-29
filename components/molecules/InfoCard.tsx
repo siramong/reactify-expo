@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import Card from '@/components/atoms/Card';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import AnimatedView from '@/components/atoms/AnimatedView';
 
 interface InfoCardProps {
-  icon: keyof typeof Ionicons.glyphMap;
+  icon: keyof typeof FontAwesome5.glyphMap;
   title: string;
   value: string | number;
   subtitle?: string;
@@ -24,7 +24,7 @@ export default function InfoCard({
     <Card variant="elevated" className="mb-3">
       <View className="flex-row items-center">
         <View className="bg-react-blue/20 rounded-full p-3 mr-3">
-          <Ionicons name={icon} size={28} color="#61DAFB" />
+          <FontAwesome5 name={icon} size={28} color="#61DAFB" />
         </View>
         <View className="flex-1">
           <Text className="text-gray-400 text-sm">{title}</Text>
@@ -34,7 +34,7 @@ export default function InfoCard({
           )}
         </View>
         {onPress && (
-          <Ionicons name="chevron-forward" size={20} color="#888" />
+          <FontAwesome5 name="chevron-forward" size={20} color="#888" />
         )}
       </View>
     </Card>

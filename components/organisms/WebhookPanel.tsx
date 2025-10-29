@@ -61,8 +61,7 @@ export default function WebhookPanel() {
           <Text className="text-white text-lg font-semibold ml-2">Información</Text>
         </View>
         <Text className="text-gray-400 text-sm">
-          Completa los campos que deseas enviar al webhook de BotGhost. 
-          Los campos vacíos serán ignorados automáticamente.
+          Este panel te permite interactuar con Discord, sin necesidad de usarlo.
         </Text>
       </Card>
 
