@@ -1,4 +1,4 @@
-import { View, ActivityIndicator, Text } from "react-native";
+import { ActivityIndicator, Text } from "react-native";
 import * as Animatable from "react-native-animatable";
 
 interface LoaderProps {

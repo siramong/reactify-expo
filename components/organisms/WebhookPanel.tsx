@@ -3,6 +3,7 @@ import { View, Text, ScrollView } from "react-native";
 import Input from "@/components/atoms/Input";
 import Button from "@/components/atoms/Button";
 import Card from "@/components/atoms/Card";
+import StatusBadge from "@/components/atoms/StatusBadge";
 import AnimatedView from "@/components/atoms/AnimatedView";
 import { sendWebhook } from "@/services/webhook";
 import { Ionicons } from "@expo/vector-icons";
@@ -39,14 +40,14 @@ export default function WebhookPanel() {
       const ok = await sendWebhook("uq5r1fytr5v2gmslm9ey", payload);
       
       if (ok) {
-        setStatus({ type: 'success', message: '✅ Datos enviados correctamente al webhook' });
+        setStatus({ type: 'success', message: 'Datos enviados correctamente al webhook' });
         // Clear fields after successful send
         setFields(Array(10).fill(""));
       } else {
-        setStatus({ type: 'error', message: '❌ Error al enviar datos. Intenta nuevamente.' });
+        setStatus({ type: 'error', message: 'Error al enviar datos. Intenta nuevamente.' });
       }
-    } catch (error) {
-      setStatus({ type: 'error', message: '❌ Error inesperado al procesar la solicitud' });
+    } catch {
+      setStatus({ type: 'error', message: 'Error inesperado al procesar la solicitud' });
     } finally {
       setLoading(false);
     }
@@ -86,20 +87,10 @@ export default function WebhookPanel() {
 
         {status.type && (
           <AnimatedView animation="bounceIn" className="mt-4">
-            <Card variant={status.type === 'success' ? 'elevated' : 'outlined'}>
-              <View className="flex-row items-center">
-                <Ionicons 
-                  name={status.type === 'success' ? 'checkmark-circle' : 'alert-circle'} 
-                  size={24} 
-                  color={status.type === 'success' ? '#10B981' : '#EF4444'} 
-                />
-                <Text 
-                  className={`ml-3 flex-1 ${status.type === 'success' ? 'text-green-400' : 'text-red-400'}`}
-                >
-                  {status.message}
-                </Text>
-              </View>
-            </Card>
+            <StatusBadge 
+              type={status.type} 
+              message={status.message}
+            />
           </AnimatedView>
         )}
       </ScrollView>

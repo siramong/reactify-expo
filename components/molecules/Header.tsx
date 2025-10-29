@@ -1,5 +1,4 @@
 import { View, Text } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import AnimatedView from "@/components/atoms/AnimatedView";
 
 interface HeaderProps {
