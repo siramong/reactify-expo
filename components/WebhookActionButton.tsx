@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, View } from "react-native";
+import { TouchableOpacity, Text, View, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import AnimatedView from "./AnimatedView";
@@ -66,7 +66,7 @@ export default function WebhookActionButton({
           </View>
           {loading && (
             <View className="ml-2">
-              <Ionicons name="reload-circle" size={24} color={color} />
+              <ActivityIndicator size="small" color={color} />
             </View>
           )}
         </View>
