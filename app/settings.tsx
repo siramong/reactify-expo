@@ -8,7 +8,11 @@ export default function Settings() {
   return (
     <ScrollView className="flex-1 bg-dark-bg p-4 pt-10">
       <AnimatedView>
-        <Header title="Configuración" subtitle="Información de la aplicación" />
+        <Header 
+          title="Configuración" 
+          subtitle="Información de la aplicación"
+          icon="settings"
+        />
 
         <Card variant="elevated" className="mb-4">
           <View className="items-center py-6">

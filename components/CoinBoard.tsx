@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AnimatedView from "@/components/AnimatedView";
 import Card from "@/components/Card";
 import Loader from "@/components/Loader";
+import EmptyState from "@/components/EmptyState";
 import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
 import CourseSelector from "@/components/CourseSelector";
 
@@ -45,18 +46,12 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
 
   if (coins.length === 0) {
     return (
-      <AnimatedView
-        animation="fadeIn"
-        className="items-center justify-center py-12"
-      >
-        <Ionicons name="wallet-outline" size={64} color="#888" />
-        <Text className="text-gray-400 text-lg mt-4">
-          No hay monedas disponibles
-        </Text>
-        <Text className="text-gray-500 text-sm mt-2">
-          Los datos aparecerán aquí en tiempo real
-        </Text>
-      </AnimatedView>
+      <EmptyState
+        icon="wallet-outline"
+        title="No hay monedas disponibles"
+        description="Los datos aparecerán aquí en tiempo real"
+        iconColor="#61DAFB"
+      />
     );
   }
 
@@ -71,15 +66,12 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
 
       {/* Mensaje si no hay usuarios en este curso */}
       {filteredCoins.length === 0 && (
-        <AnimatedView
-          animation="fadeIn"
-          className="items-center justify-center py-12"
-        >
-          <Ionicons name="person-outline" size={64} color="#888" />
-          <Text className="text-gray-400 text-lg mt-4">
-            No hay usuarios en este curso
-          </Text>
-        </AnimatedView>
+        <EmptyState
+          icon="person-outline"
+          title="No hay usuarios en este curso"
+          description="Selecciona otro curso para ver más datos"
+          iconColor="#F59E0B"
+        />
       )}
 
       {/* Lista de usuarios */}

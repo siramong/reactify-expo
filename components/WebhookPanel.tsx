@@ -28,6 +28,7 @@ export default function WebhookPanel() {
 
   const handleEventTrigger = async () => {
     setLoading(true);
+    setActiveMode("event");
     setStatus({ type: null, message: "" });
 
     try {
@@ -55,6 +56,7 @@ export default function WebhookPanel() {
       });
     } finally {
       setLoading(false);
+      setActiveMode(null);
     }
   };
 

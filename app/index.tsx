@@ -41,8 +41,9 @@ export default function Index() {
         <AnimatedView>
           {/* Header e InfoCards */}
           <Header
-            title="Reactify Dashboard"
+            title="Dashboard"
             subtitle="Monitorea las monedas en tiempo real"
+            icon="stats-chart"
           />
 
           <View className="mb-4">
