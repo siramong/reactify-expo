@@ -32,6 +32,7 @@ export default function WebhookActionButton({
   };
 
   const opacity = disabled || loading ? 0.6 : 1;
+  const backgroundOpacity = "20"; // 20% opacity for background
 
   return (
     <AnimatedView animation="fadeInUp" delay={delay} className="mb-4">
@@ -52,7 +53,7 @@ export default function WebhookActionButton({
         <View className="flex-row items-center">
           <View 
             className="rounded-full p-4 mr-4"
-            style={{ backgroundColor: color + "20" }}
+            style={{ backgroundColor: `${color}${backgroundOpacity}` }}
           >
             <Ionicons name={icon} size={32} color={color} />
           </View>

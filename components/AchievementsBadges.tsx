@@ -3,6 +3,7 @@ import { View, Text, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import AnimatedView from "@/components/AnimatedView";
 import Card from "@/components/Card";
+import type { Coin } from "@/types";
 
 interface Achievement {
   id: string;
@@ -14,7 +15,7 @@ interface Achievement {
 }
 
 interface AchievementsBadgesProps {
-  coins: any[];
+  coins: Coin[];
 }
 
 export default function AchievementsBadges({ coins }: AchievementsBadgesProps) {

@@ -3,9 +3,10 @@ import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import AnimatedView from "@/components/AnimatedView";
 import Card from "@/components/Card";
+import type { Coin } from "@/types";
 
 interface StatsDashboardProps {
-  coins: any[];
+  coins: Coin[];
   selectedCurso: string;
 }
 
