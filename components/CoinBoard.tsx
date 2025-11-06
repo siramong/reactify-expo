@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, RefreshControl } from "react-native";
-import { Ionicons, FontAwesome5, AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import AnimatedView from "@/components/AnimatedView";
 import Card from "@/components/Card";
 import Loader from "@/components/Loader";
@@ -97,6 +97,8 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
           }
           renderItem={({ item, index }) => {
             const color = CURSO_COLORS[item.curso] || "#9CA3AF";
+            const rankIcon = index === 0 ? "trophy" : index === 1 ? "medal" : index === 2 ? "ribbon" : "person-circle";
+            
             return (
               <AnimatedView
                 animation="fadeInUp"
@@ -105,34 +107,52 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
               >
                 <Card variant="elevated">
                   <View className="flex-row items-center justify-between">
+                    {/* Ranking Badge */}
+                    <View className="mr-3">
+                      <View 
+                        className="rounded-full w-12 h-12 items-center justify-center"
+                        style={{ backgroundColor: color + "20" }}
+                      >
+                        <Text className="text-white font-bold text-lg">
+                          {index + 1}
+                        </Text>
+                      </View>
+                    </View>
+
                     {/* Usuario */}
                     <View className="flex-row items-center flex-1">
-                      <View className={`rounded-full p-3 mr-3`} style={{ backgroundColor: color + "33" }}>
-                        <Ionicons name="person" size={24} color={color} />
+                      <View className="rounded-xl p-3 mr-3" style={{ backgroundColor: color + "15" }}>
+                        <Ionicons name={rankIcon} size={24} color={color} />
                       </View>
                       <View className="flex-1">
                         <Text className="text-white text-lg font-semibold">
                           {item.username}
                         </Text>
-                        <Text className="text-gray-400 text-sm">
-                          ID: {item.userId.slice(0, 8)}
-                        </Text>
+                        <View className="flex-row items-center mt-1">
+                          <Ionicons name="school" size={14} color={color} />
+                          <Text className="text-sm font-bold ml-1" style={{ color }}>
+                            {item.curso}
+                          </Text>
+                        </View>
                       </View>
                     </View>
 
-                    {/* Curso y monedas */}
-                    <View className="items-end flex-row gap-5">
-                      <View className="flex-row items-center">
-                        <AntDesign name="inbox" size={16} color={color} />
-                        <Text className="text-lg font-bold ml-1" style={{ color }}>
-                          {item.curso}
-                        </Text>
-                      </View>
-                      <View className="flex-row items-center">
-                        <FontAwesome5 name="coins" size={16} color={color} />
-                        <Text className="text-lg font-bold ml-1" style={{ color }}>
-                          {item.amount}
-                        </Text>
+                    {/* Monedas con efecto especial */}
+                    <View className="items-center">
+                      <View 
+                        className="rounded-2xl px-4 py-2"
+                        style={{ 
+                          backgroundColor: color + "20",
+                          borderWidth: 2,
+                          borderColor: color + "40",
+                        }}
+                      >
+                        <View className="flex-row items-center">
+                          <Ionicons name="logo-bitcoin" size={20} color={color} />
+                          <Text className="text-xl font-extrabold ml-2" style={{ color }}>
+                            {item.amount}
+                          </Text>
+                        </View>
                       </View>
                     </View>
                   </View>

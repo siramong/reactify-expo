@@ -1,15 +1,16 @@
 import AnimatedView from "@/components/AnimatedView";
 import Card from "@/components/Card";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { Text, TouchableOpacity, View } from "react-native";
 
 interface InfoCardProps {
-  icon: keyof typeof FontAwesome5.glyphMap;
+  icon: keyof typeof Ionicons.glyphMap;
   title: string;
   value: string | number;
   subtitle?: string;
   onPress?: () => void;
   delay?: number;
+  gradientColors?: [string, string];
 }
 
 export default function InfoCard({
@@ -19,22 +20,41 @@ export default function InfoCard({
   subtitle,
   onPress,
   delay = 0,
+  gradientColors = ["#61DAFB", "#3B82F6"],
 }: InfoCardProps) {
   const CardContent = (
-    <Card variant="elevated" className="mb-3">
+    <Card variant="elevated" className="mb-3 overflow-hidden">
       <View className="flex-row items-center">
-        <View className="bg-react-blue/20 rounded-full p-3 mr-3">
-          <FontAwesome5 name={icon} size={28} color="#61DAFB" />
+        <View 
+          className="rounded-2xl p-4 mr-3"
+          style={{
+            backgroundColor: gradientColors[0] + "20",
+            shadowColor: gradientColors[0],
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.3,
+            shadowRadius: 4,
+          }}
+        >
+          <Ionicons name={icon} size={32} color={gradientColors[0]} />
         </View>
         <View className="flex-1">
-          <Text className="text-gray-400 text-sm">{title}</Text>
-          <Text className="text-white text-2xl font-bold mt-1">{value}</Text>
+          <Text className="text-gray-400 text-sm uppercase tracking-wide">{title}</Text>
+          <Text 
+            className="text-white text-3xl font-extrabold mt-1"
+            style={{ 
+              textShadowColor: gradientColors[0] + "40",
+              textShadowOffset: { width: 0, height: 2 },
+              textShadowRadius: 4,
+            }}
+          >
+            {value}
+          </Text>
           {subtitle && (
-            <Text className="text-gray-500 text-xs mt-1">{subtitle}</Text>
+            <Text className="text-gray-500 text-xs mt-1 font-medium">{subtitle}</Text>
           )}
         </View>
         {onPress && (
-          <FontAwesome5 name="chevron-forward" size={20} color="#888" />
+          <Ionicons name="chevron-forward" size={24} color="#888" />
         )}
       </View>
     </Card>
