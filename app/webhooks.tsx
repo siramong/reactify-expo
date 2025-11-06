@@ -8,8 +8,9 @@ export default function Webhooks() {
     <ScrollView className="flex-1 bg-dark-bg p-4 pt-10">
       <AnimatedView>
         <Header
-          title="Administración Discord"
-          subtitle="Envía acciones personalizados al bot de Discord"
+          title="Discord"
+          subtitle="Envía acciones personalizadas al bot de Discord"
+          icon="logo-discord"
         />
         <WebhookPanel />
       </AnimatedView>

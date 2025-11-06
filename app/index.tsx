@@ -3,17 +3,14 @@ import { FlatList, View } from "react-native";
 import AnimatedView from "@/components/AnimatedView";
 import Header from "@/components/Header";
 import InfoCard from "@/components/InfoCard";
+import QuickStats from "@/components/QuickStats";
 import CoinBoard from "@/components/CoinBoard";
+import Leaderboard from "@/components/Leaderboard";
+import StatsDashboard from "@/components/StatsDashboard";
+import AchievementsBadges from "@/components/AchievementsBadges";
 import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
+import type { Coin } from "@/types";
 import "@/global.css";
-
-type Coin = {
-  id: string;
-  username: string;
-  userId: string;
-  curso: string;
-  amount: number;
-};
 
 export default function Index() {
   const { coins } = useRealtimeCoins();
@@ -31,6 +28,16 @@ export default function Index() {
       ? Math.round(totalCoins / filteredCoins.length)
       : 0;
 
+  // Calcular curso con más monedas totales
+  const topCourse = useMemo(() => {
+    if (coins.length === 0) return "";
+    const courseStats: Record<string, number> = {};
+    coins.forEach((coin: Coin) => {
+      courseStats[coin.curso] = (courseStats[coin.curso] || 0) + coin.amount;
+    });
+    return Object.entries(courseStats).reduce((a, b) => (b[1] > a[1] ? b : a))[0];
+  }, [coins]);
+
   return (
     <FlatList
       className="flex-1 bg-dark-bg p-4 pt-10"
@@ -38,32 +45,66 @@ export default function Index() {
         <AnimatedView>
           {/* Header e InfoCards */}
           <Header
-            title="Reactify Dashboard"
+            title="Dashboard"
             subtitle="Monitorea las monedas en tiempo real"
+            icon="stats-chart"
           />
+
+          {/* Quick Stats - New compact overview */}
+          {coins.length > 0 && (
+            <QuickStats
+              totalStudents={coins.length}
+              totalCoins={coins.reduce((sum, c) => sum + c.amount, 0)}
+              avgCoins={Math.round(coins.reduce((sum, c) => sum + c.amount, 0) / coins.length)}
+              topCourse={topCourse}
+            />
+          )}
 
           <View className="mb-4">
             <View className="flex-row space-x-2 place-content-between gap-5">
               <View className="flex-1">
                 <InfoCard
-                  icon="user-alt"
+                  icon="people"
                   title="Estudiantes"
                   value={filteredCoins.length}
                   subtitle="Total activos"
                   delay={0}
+                  gradientColors={["#3B82F6", "#2563EB"]}
                 />
               </View>
               <View className="flex-1">
                 <InfoCard
-                  icon="coins"
+                  icon="wallet"
                   title="Total Monedas"
                   value={totalCoins}
                   subtitle={`Promedio: ${avgCoins}`}
                   delay={100}
+                  gradientColors={["#F59E0B", "#D97706"]}
                 />
               </View>
             </View>
           </View>
+
+          {/* Achievements System */}
+          {coins.length > 0 && (
+            <AnimatedView delay={200}>
+              <AchievementsBadges coins={coins} />
+            </AnimatedView>
+          )}
+
+          {/* Leaderboard */}
+          {coins.length > 0 && (
+            <AnimatedView delay={300}>
+              <Leaderboard coins={coins} selectedCurso={selectedCurso} />
+            </AnimatedView>
+          )}
+
+          {/* Statistics Dashboard */}
+          {filteredCoins.length > 0 && (
+            <AnimatedView delay={400}>
+              <StatsDashboard coins={coins} selectedCurso={selectedCurso} />
+            </AnimatedView>
+          )}
 
           {/* CoinBoard */}
           <CoinBoard

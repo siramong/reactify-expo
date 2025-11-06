@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 interface CardProps extends ViewProps {
   children: ReactNode;
-  variant?: "default" | "elevated" | "outlined";
+  variant?: "default" | "elevated" | "outlined" | "gradient";
   className?: string;
 }
 
@@ -19,6 +19,7 @@ export default function Card({
     default: "bg-dark-card",
     elevated: "bg-dark-card shadow-lg shadow-black/50",
     outlined: "bg-dark-card border-2 border-dark-border",
+    gradient: "bg-dark-card",
   };
 
   return (

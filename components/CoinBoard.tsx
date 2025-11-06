@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, RefreshControl } from "react-native";
-import { Ionicons, FontAwesome5, AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import AnimatedView from "@/components/AnimatedView";
 import Card from "@/components/Card";
 import Loader from "@/components/Loader";
+import EmptyState from "@/components/EmptyState";
 import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
 import CourseSelector from "@/components/CourseSelector";
 
@@ -45,18 +46,12 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
 
   if (coins.length === 0) {
     return (
-      <AnimatedView
-        animation="fadeIn"
-        className="items-center justify-center py-12"
-      >
-        <Ionicons name="wallet-outline" size={64} color="#888" />
-        <Text className="text-gray-400 text-lg mt-4">
-          No hay monedas disponibles
-        </Text>
-        <Text className="text-gray-500 text-sm mt-2">
-          Los datos aparecerán aquí en tiempo real
-        </Text>
-      </AnimatedView>
+      <EmptyState
+        icon="wallet-outline"
+        title="No hay monedas disponibles"
+        description="Los datos aparecerán aquí en tiempo real"
+        iconColor="#61DAFB"
+      />
     );
   }
 
@@ -71,15 +66,12 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
 
       {/* Mensaje si no hay usuarios en este curso */}
       {filteredCoins.length === 0 && (
-        <AnimatedView
-          animation="fadeIn"
-          className="items-center justify-center py-12"
-        >
-          <Ionicons name="person-outline" size={64} color="#888" />
-          <Text className="text-gray-400 text-lg mt-4">
-            No hay usuarios en este curso
-          </Text>
-        </AnimatedView>
+        <EmptyState
+          icon="person-outline"
+          title="No hay usuarios en este curso"
+          description="Selecciona otro curso para ver más datos"
+          iconColor="#F59E0B"
+        />
       )}
 
       {/* Lista de usuarios */}
@@ -97,6 +89,8 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
           }
           renderItem={({ item, index }) => {
             const color = CURSO_COLORS[item.curso] || "#9CA3AF";
+            const rankIcon = index === 0 ? "trophy" : index === 1 ? "medal" : index === 2 ? "ribbon" : "person-circle";
+            
             return (
               <AnimatedView
                 animation="fadeInUp"
@@ -105,34 +99,52 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
               >
                 <Card variant="elevated">
                   <View className="flex-row items-center justify-between">
+                    {/* Ranking Badge */}
+                    <View className="mr-3">
+                      <View 
+                        className="rounded-full w-12 h-12 items-center justify-center"
+                        style={{ backgroundColor: color + "20" }}
+                      >
+                        <Text className="text-white font-bold text-lg">
+                          {index + 1}
+                        </Text>
+                      </View>
+                    </View>
+
                     {/* Usuario */}
                     <View className="flex-row items-center flex-1">
-                      <View className={`rounded-full p-3 mr-3`} style={{ backgroundColor: color + "33" }}>
-                        <Ionicons name="person" size={24} color={color} />
+                      <View className="rounded-xl p-3 mr-3" style={{ backgroundColor: color + "15" }}>
+                        <Ionicons name={rankIcon} size={24} color={color} />
                       </View>
                       <View className="flex-1">
                         <Text className="text-white text-lg font-semibold">
                           {item.username}
                         </Text>
-                        <Text className="text-gray-400 text-sm">
-                          ID: {item.userId.slice(0, 8)}
-                        </Text>
+                        <View className="flex-row items-center mt-1">
+                          <Ionicons name="school" size={14} color={color} />
+                          <Text className="text-sm font-bold ml-1" style={{ color }}>
+                            {item.curso}
+                          </Text>
+                        </View>
                       </View>
                     </View>
 
-                    {/* Curso y monedas */}
-                    <View className="items-end flex-row gap-5">
-                      <View className="flex-row items-center">
-                        <AntDesign name="inbox" size={16} color={color} />
-                        <Text className="text-lg font-bold ml-1" style={{ color }}>
-                          {item.curso}
-                        </Text>
-                      </View>
-                      <View className="flex-row items-center">
-                        <FontAwesome5 name="coins" size={16} color={color} />
-                        <Text className="text-lg font-bold ml-1" style={{ color }}>
-                          {item.amount}
-                        </Text>
+                    {/* Monedas con efecto especial */}
+                    <View className="items-center">
+                      <View 
+                        className="rounded-2xl px-4 py-2"
+                        style={{ 
+                          backgroundColor: color + "20",
+                          borderWidth: 2,
+                          borderColor: color + "40",
+                        }}
+                      >
+                        <View className="flex-row items-center">
+                          <Ionicons name="logo-bitcoin" size={20} color={color} />
+                          <Text className="text-xl font-extrabold ml-2" style={{ color }}>
+                            {item.amount}
+                          </Text>
+                        </View>
                       </View>
                     </View>
                   </View>
