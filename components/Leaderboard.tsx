@@ -42,11 +42,15 @@ export default function Leaderboard({ coins, selectedCurso }: LeaderboardProps) 
           return (
             <AnimatedView key={student.id} delay={index * 100}>
               <View
-                className="flex-row items-center p-3 rounded-xl"
+                className="flex-row items-center p-4 rounded-2xl"
                 style={{
                   backgroundColor: rankColor + "15",
-                  borderWidth: 2,
-                  borderColor: rankColor + "30",
+                  borderWidth: index === 0 ? 3 : 2,
+                  borderColor: index === 0 ? rankColor : rankColor + "30",
+                  shadowColor: index === 0 ? rankColor : "transparent",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.4,
+                  shadowRadius: 8,
                 }}
               >
                 <View
