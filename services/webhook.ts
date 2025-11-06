@@ -1,8 +1,10 @@
+import { BOTGHOST_GUILD_ID, BOTGHOST_API_KEY } from "@/constants/config";
+
 export const sendWebhook = async (
   eventId: string,
   payload: Record<string, any>
 ) => {
-  const url = `https://api.botghost.com/webhook/1430635396915531857/${eventId}`;
+  const url = `https://api.botghost.com/webhook/${BOTGHOST_GUILD_ID}/${eventId}`;
   const body = {
     variables: Object.entries(payload).map(([key, value]) => ({
       name: key,
@@ -15,7 +17,7 @@ export const sendWebhook = async (
     const res = await fetch(url, {
       method: "POST",
       headers: {
-        Authorization: "API_KEY",
+        Authorization: BOTGHOST_API_KEY,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),

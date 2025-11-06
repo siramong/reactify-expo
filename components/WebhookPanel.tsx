@@ -7,6 +7,7 @@ import StatusBadge from "@/components/StatusBadge";
 import AnimatedView from "@/components/AnimatedView";
 import WebhookActionButton from "@/components/WebhookActionButton";
 import { sendWebhook } from "@/services/webhook";
+import { WEBHOOK_EVENTS } from "@/constants/config";
 import { Ionicons } from "@expo/vector-icons";
 
 type ActionMode = "event" | "data" | null;
@@ -33,7 +34,7 @@ export default function WebhookPanel() {
 
     try {
       // Trigger a simple event without data
-      const ok = await sendWebhook("uq5r1fytr5v2gmslm9ey", { 
+      const ok = await sendWebhook(WEBHOOK_EVENTS.DEFAULT, { 
         event: "trigger",
         timestamp: new Date().toISOString() 
       });
@@ -81,7 +82,7 @@ export default function WebhookPanel() {
         return;
       }
 
-      const ok = await sendWebhook("uq5r1fytr5v2gmslm9ey", payload);
+      const ok = await sendWebhook(WEBHOOK_EVENTS.DEFAULT, payload);
 
       if (ok) {
         setStatus({

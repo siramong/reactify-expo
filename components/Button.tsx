@@ -77,8 +77,10 @@ export default function Button({
               name={icon} 
               size={size === "lg" ? 24 : size === "sm" ? 16 : 20} 
               color={
-                variant === "primary" || variant === "success" || variant === "danger"
+                variant === "primary"
                   ? "#000"
+                  : variant === "success" || variant === "danger"
+                  ? "#FFF"
                   : "#61DAFB"
               }
               style={{ marginRight: 8 }}
