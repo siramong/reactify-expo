@@ -5,7 +5,7 @@ import AnimatedView from "@/components/AnimatedView";
 import Card from "@/components/Card";
 import type { Coin } from "@/types";
 
-interface Achievement {
+interface AchievementLocal {
   id: string;
   icon: keyof typeof Ionicons.glyphMap;
   title: string;
@@ -25,7 +25,7 @@ export default function AchievementsBadges({ coins }: AchievementsBadgesProps) {
     const maxCoins = coins.length > 0 ? Math.max(...coins.map((c) => c.amount)) : 0;
     const studentCount = coins.length;
 
-    const achievementsList: Achievement[] = [
+    const achievementsList: AchievementLocal[] = [
       {
         id: "first_coins",
         icon: "rocket",

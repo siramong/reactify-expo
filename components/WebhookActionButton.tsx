@@ -2,6 +2,7 @@ import { TouchableOpacity, Text, View, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import AnimatedView from "./AnimatedView";
+import { addOpacity } from "@/utils/colors";
 
 interface WebhookActionButtonProps {
   title: string;
@@ -32,7 +33,6 @@ export default function WebhookActionButton({
   };
 
   const opacity = disabled || loading ? 0.6 : 1;
-  const backgroundOpacity = "20"; // 20% opacity for background
 
   return (
     <AnimatedView animation="fadeInUp" delay={delay} className="mb-4">
@@ -53,7 +53,7 @@ export default function WebhookActionButton({
         <View className="flex-row items-center">
           <View 
             className="rounded-full p-4 mr-4"
-            style={{ backgroundColor: `${color}${backgroundOpacity}` }}
+            style={{ backgroundColor: addOpacity(color, 0.2) }}
           >
             <Ionicons name={icon} size={32} color={color} />
           </View>

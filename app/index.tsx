@@ -9,15 +9,8 @@ import Leaderboard from "@/components/Leaderboard";
 import StatsDashboard from "@/components/StatsDashboard";
 import AchievementsBadges from "@/components/AchievementsBadges";
 import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
+import type { Coin } from "@/types";
 import "@/global.css";
-
-type Coin = {
-  id: string;
-  username: string;
-  userId: string;
-  curso: string;
-  amount: number;
-};
 
 export default function Index() {
   const { coins } = useRealtimeCoins();
