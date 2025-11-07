@@ -13,7 +13,7 @@ export default function EmptyState({
   icon,
   title,
   description,
-  iconColor = "#7DD3FC",
+  iconColor = "#888",
 }: EmptyStateProps) {
   return (
     <AnimatedView
@@ -21,7 +21,7 @@ export default function EmptyState({
       className="items-center justify-center py-16 px-6"
     >
       <View
-        className="rounded-full p-6 mb-4 border border-glass-border-light"
+        className="rounded-full p-6 mb-4"
         style={{
           backgroundColor: iconColor + "20",
         }}
@@ -31,7 +31,7 @@ export default function EmptyState({
       <Text className="text-white text-xl font-bold mb-2 text-center">
         {title}
       </Text>
-      <Text className="text-slate-400 text-sm text-center">
+      <Text className="text-gray-400 text-sm text-center">
         {description}
       </Text>
     </AnimatedView>

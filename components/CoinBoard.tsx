@@ -14,13 +14,13 @@ interface CoinBoardProps {
 }
 
 const CURSO_COLORS: Record<string, string> = {
-  Todos: "#94A3B8",
-  "1E1": "#60A5FA",
-  "1E2": "#34D399",
-  "2E1": "#FBBF24",
+  Todos: "#9CA3AF",
+  "1E1": "#3B82F6",
+  "1E2": "#10B981",
+  "2E1": "#FACC15",
   "2E2": "#F97316",
-  "3E1": "#F87171",
-  "3E2": "#A78BFA",
+  "3E1": "#EF4444",
+  "3E2": "#8B5CF6",
 };
 
 export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardProps) {
@@ -50,7 +50,7 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
         icon="wallet-outline"
         title="No hay monedas disponibles"
         description="Los datos aparecerán aquí en tiempo real"
-        iconColor="#7DD3FC"
+        iconColor="#61DAFB"
       />
     );
   }
@@ -83,8 +83,8 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              tintColor="#7DD3FC"
-              colors={["#7DD3FC"]}
+              tintColor="#61DAFB"
+              colors={["#61DAFB"]}
             />
           }
           renderItem={({ item, index }) => {
@@ -97,12 +97,12 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
                 delay={index * 80}
                 className="mb-3"
               >
-                <Card variant="glass">
+                <Card variant="elevated">
                   <View className="flex-row items-center justify-between">
                     {/* Ranking Badge */}
                     <View className="mr-3">
                       <View 
-                        className="rounded-full w-12 h-12 items-center justify-center border border-glass-border-light"
+                        className="rounded-full w-12 h-12 items-center justify-center"
                         style={{ backgroundColor: color + "20" }}
                       >
                         <Text className="text-white font-bold text-lg">
@@ -113,7 +113,7 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
 
                     {/* Usuario */}
                     <View className="flex-row items-center flex-1">
-                      <View className="rounded-2xl p-3 mr-3 border border-glass-border-light" style={{ backgroundColor: color + "15" }}>
+                      <View className="rounded-xl p-3 mr-3" style={{ backgroundColor: color + "15" }}>
                         <Ionicons name={rankIcon} size={24} color={color} />
                       </View>
                       <View className="flex-1">
@@ -132,10 +132,10 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
                     {/* Monedas con efecto especial */}
                     <View className="items-center">
                       <View 
-                        className="rounded-2xl px-4 py-2 border"
+                        className="rounded-2xl px-4 py-2 border-2"
                         style={{ 
                           backgroundColor: color + "20",
-                          borderColor: 'rgba(255, 255, 255, 0.2)',
+                          borderColor: color + "40",
                         }}
                       >
                         <View className="flex-row items-center">

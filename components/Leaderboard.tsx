@@ -10,7 +10,7 @@ interface LeaderboardProps {
   selectedCurso: string;
 }
 
-const RANK_COLORS = ["#FBBF24", "#94A3B8", "#D97706"];
+const RANK_COLORS = ["#FFD700", "#C0C0C0", "#CD7F32"];
 const RANK_ICONS: (keyof typeof Ionicons.glyphMap)[] = ["trophy", "medal", "ribbon"];
 
 export default function Leaderboard({ coins, selectedCurso }: LeaderboardProps) {
@@ -27,39 +27,35 @@ export default function Leaderboard({ coins, selectedCurso }: LeaderboardProps) 
   }
 
   return (
-    <Card variant="glass" className="mb-4">
+    <Card variant="elevated" className="mb-4">
       <View className="flex-row items-center mb-4">
-        <View 
-          className="rounded-full p-2 mr-2 border border-glass-border-light"
-          style={{ backgroundColor: 'rgba(251, 191, 36, 0.2)' }}
-        >
-          <Ionicons name="podium" size={20} color="#FBBF24" />
-        </View>
-        <Text className="text-white text-xl font-bold">
+        <Ionicons name="podium" size={24} color="#FFD700" />
+        <Text className="text-white text-xl font-bold ml-2">
           Top Estudiantes
         </Text>
       </View>
 
       <View className="space-y-3">
         {topStudents.map((student, index) => {
-          const rankColor = RANK_COLORS[index] || "#94A3B8";
+          const rankColor = RANK_COLORS[index] || "#9CA3AF";
           const rankIcon = RANK_ICONS[index] || "star";
 
           return (
             <AnimatedView key={student.userId} delay={index * 100}>
               <View
-                className="flex-row items-center p-4 rounded-2xl mt-1 mb-1 border"
+                className="flex-row items-center p-4 rounded-2xl mt-1 mb-1"
                 style={{
-                  backgroundColor: `rgba(255, 255, 255, ${index === 0 ? 0.15 : 0.1})`,
-                  borderColor: index === 0 ? rankColor : 'rgba(255, 255, 255, 0.1)',
-                  shadowColor: index === 0 ? rankColor : "#000",
+                  backgroundColor: rankColor + "15",
+                  borderWidth: index === 0 ? 3 : 2,
+                  borderColor: index === 0 ? rankColor : rankColor + "30",
+                  shadowColor: index === 0 ? rankColor : "transparent",
                   shadowOffset: { width: 0, height: 4 },
-                  shadowOpacity: index === 0 ? 0.4 : 0.2,
+                  shadowOpacity: 0.4,
                   shadowRadius: 8,
                 }}
               >
                 <View
-                  className="rounded-full w-10 h-10 items-center justify-center mr-3 border border-glass-border-light"
+                  className="rounded-full w-10 h-10 items-center justify-center mr-3"
                   style={{ backgroundColor: rankColor + "30" }}
                 >
                   <Ionicons name={rankIcon} size={20} color={rankColor} />
@@ -69,7 +65,7 @@ export default function Leaderboard({ coins, selectedCurso }: LeaderboardProps) 
                   <Text className="text-white text-base font-bold">
                     {student.username}
                   </Text>
-                  <Text className="text-slate-400 text-xs">
+                  <Text className="text-gray-400 text-xs">
                     {student.curso}
                   </Text>
                 </View>

@@ -1,13 +1,6 @@
-/**
- * Legacy color constants - for backward compatibility
- * @deprecated Use theme colors from '@/theme' instead
- */
-
-import { glass, background, text } from '@/theme';
-
 export default {
-  primary: glass.primary,
-  background: background.primary,
-  card: background.secondary,
-  text: text.primary,
+  primary: "#61DAFB",
+  background: "#0D1117",
+  card: "#161B22",
+  text: "#FFFFFF",
 };

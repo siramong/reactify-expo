@@ -47,38 +47,33 @@ export default function StatsDashboard({ coins, selectedCurso }: StatsDashboardP
       icon: "trending-up" as keyof typeof Ionicons.glyphMap,
       label: "Máximo",
       value: stats.max,
-      color: "#34D399",
+      color: "#10B981",
     },
     {
       icon: "trending-down" as keyof typeof Ionicons.glyphMap,
       label: "Mínimo",
       value: stats.min,
-      color: "#F87171",
+      color: "#EF4444",
     },
     {
       icon: "stats-chart" as keyof typeof Ionicons.glyphMap,
       label: "Mediana",
       value: stats.median,
-      color: "#7DD3FC",
+      color: "#3B82F6",
     },
     {
       icon: "swap-horizontal" as keyof typeof Ionicons.glyphMap,
       label: "Rango",
       value: stats.range,
-      color: "#FBBF24",
+      color: "#F59E0B",
     },
   ];
 
   return (
-    <Card variant="glass" className="mb-4">
+    <Card variant="elevated" className="mb-4">
       <View className="flex-row items-center mb-4">
-        <View 
-          className="rounded-full p-2 mr-2 border border-glass-border-light"
-          style={{ backgroundColor: 'rgba(125, 211, 252, 0.2)' }}
-        >
-          <Ionicons name="analytics" size={20} color="#7DD3FC" />
-        </View>
-        <Text className="text-white text-xl font-bold">
+        <Ionicons name="analytics" size={24} color="#61DAFB" />
+        <Text className="text-white text-xl font-bold ml-2">
           Estadísticas
         </Text>
       </View>
@@ -91,26 +86,21 @@ export default function StatsDashboard({ coins, selectedCurso }: StatsDashboardP
             className="w-[48%] mb-3"
           >
             <View
-              className="p-4 rounded-2xl border"
+              className="p-4 rounded-xl border"
               style={{
                 backgroundColor: item.color + "15",
-                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderColor: item.color + "30",
               }}
             >
               <View className="flex-row items-center mb-2">
                 <Ionicons name={item.icon} size={20} color={item.color} />
-                <Text className="text-slate-400 text-xs ml-2 uppercase font-medium">
+                <Text className="text-gray-400 text-xs ml-2 uppercase">
                   {item.label}
                 </Text>
               </View>
               <Text
                 className="text-2xl font-extrabold"
-                style={{ 
-                  color: item.color,
-                  textShadowColor: item.color + "30",
-                  textShadowOffset: { width: 0, height: 1 },
-                  textShadowRadius: 3,
-                }}
+                style={{ color: item.color }}
               >
                 {item.value}
               </Text>

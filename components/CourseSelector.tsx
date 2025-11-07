@@ -9,13 +9,13 @@ interface CourseSelectorProps {
 }
 
 const CURSO_COLORS: Record<string, string> = {
-  Todos: "#7DD3FC",
-  "1E1": "#60A5FA",
-  "1E2": "#34D399",
-  "2E1": "#FBBF24",
+  Todos: "#61DAFB",
+  "1E1": "#3B82F6",
+  "1E2": "#10B981",
+  "2E1": "#FACC15",
   "2E2": "#F97316",
-  "3E1": "#F87171",
-  "3E2": "#A78BFA",
+  "3E1": "#EF4444",
+  "3E2": "#8B5CF6",
 };
 
 const CURSO_ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {
@@ -36,8 +36,8 @@ export default function CourseSelector({
   return (
     <View className="mb-4">
       <View className="flex-row items-center mb-3 ml-1">
-        <Ionicons name="filter" size={18} color="#94A3B8" />
-        <Text className="text-slate-300 text-sm ml-2 font-semibold uppercase tracking-wide">
+        <Ionicons name="filter" size={18} color="#9CA3AF" />
+        <Text className="text-gray-300 text-sm ml-2 font-semibold uppercase tracking-wide">
           Filtrar por curso
         </Text>
       </View>
@@ -49,32 +49,32 @@ export default function CourseSelector({
       >
         {courses.map((curso) => {
           const isActive = selected === curso;
-          const color = CURSO_COLORS[curso] || "#94A3B8";
+          const color = CURSO_COLORS[curso] || "#9CA3AF";
           const icon = CURSO_ICONS[curso] || "school";
 
           return (
             <TouchableOpacity
               key={curso}
               onPress={() => onSelect(curso)}
-              className="px-5 py-3 mr-2 rounded-2xl border flex-row items-center"
+              className="px-4 py-3 mr-2 rounded-xl border-2 flex-row items-center"
               style={{
-                backgroundColor: isActive ? color + "25" : 'rgba(255, 255, 255, 0.08)',
-                borderColor: isActive ? color : 'rgba(255, 255, 255, 0.1)',
+                backgroundColor: isActive ? color + "20" : "#1F2937",
+                borderColor: isActive ? color : "#374151",
                 shadowColor: isActive ? color : "transparent",
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.4,
-                shadowRadius: 8,
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.3,
+                shadowRadius: 4,
               }}
             >
               <Ionicons 
                 name={icon} 
                 size={16} 
-                color={isActive ? color : "#94A3B8"}
+                color={isActive ? color : "#9CA3AF"}
                 className="mr-1.5"
               />
               <Text
-                className="text-sm font-bold ml-1"
-                style={{ color: isActive ? color : "#CBD5E1" }}
+                className="text-sm font-bold"
+                style={{ color: isActive ? color : "#D1D5DB" }}
               >
                 {curso}
               </Text>
