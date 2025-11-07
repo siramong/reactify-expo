@@ -1,4 +1,4 @@
-import Card from "@/components/Card";
+import Card from "@/components/ui/Card";
 import { Coin } from "@/services/supabase";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";

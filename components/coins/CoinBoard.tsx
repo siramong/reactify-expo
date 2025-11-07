@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, RefreshControl } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import AnimatedView from "@/components/AnimatedView";
-import Card from "@/components/Card";
-import Loader from "@/components/Loader";
-import EmptyState from "@/components/EmptyState";
+import AnimatedView from "@/components/ui/AnimatedView";
+import Card from "@/components/ui/Card";
+import Loader from "@/components/ui/Loader";
+import EmptyState from "@/components/ui/EmptyState";
 import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
-import CourseSelector from "@/components/CourseSelector";
+import CourseSelector from "@/components/coins/CourseSelector";
 
 interface CoinBoardProps {
   selectedCurso: string;

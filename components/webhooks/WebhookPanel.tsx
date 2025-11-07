@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { View, Text, ScrollView, Modal, TouchableOpacity } from "react-native";
-import Input from "@/components/Input";
-import Button from "@/components/Button";
-import Card from "@/components/Card";
-import StatusBadge from "@/components/StatusBadge";
-import AnimatedView from "@/components/AnimatedView";
-import WebhookActionButton from "@/components/WebhookActionButton";
+import Input from "@/components/ui/Input";
+import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
+import StatusBadge from "@/components/ui/StatusBadge";
+import AnimatedView from "@/components/ui/AnimatedView";
+import WebhookActionButton from "@/components/webhooks/WebhookActionButton";
 import { sendWebhook } from "@/services/webhook";
 import { WEBHOOK_EVENTS } from "@/constants/config";
 import { Ionicons } from "@expo/vector-icons";

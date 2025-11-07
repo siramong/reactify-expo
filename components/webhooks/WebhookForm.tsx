@@ -1,5 +1,5 @@
-import AnimatedView from "@/components/AnimatedView";
-import Input from "@/components/Input";
+import AnimatedView from "@/components/ui/AnimatedView";
+import Input from "@/components/ui/Input";
 import { View } from "react-native";
 
 interface WebhookFormProps {

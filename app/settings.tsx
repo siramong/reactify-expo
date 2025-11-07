@@ -1,7 +1,7 @@
 import { View, Text, Image, ScrollView } from 'react-native';
-import AnimatedView from '@/components/AnimatedView';
-import Card from '@/components/Card';
-import Header from '@/components/Header';
+import AnimatedView from '@/components/ui/AnimatedView';
+import Card from '@/components/ui/Card';
+import Header from '@/components/ui/Header';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function Settings() {
@@ -78,7 +78,7 @@ export default function Settings() {
             con una interfaz moderna y animaciones fluidas.
           </Text>
           <View className="flex-row items-center mt-4 pt-4 border-t border-dark-border">
-            <Text className="text-gray-500 text-xs">Versión 1.0.0</Text>
+            <Text className="text-gray-500 text-xs">Versión 2.0.0</Text>
           </View>
         </Card>
       </AnimatedView>

@@ -1,5 +1,5 @@
-import AnimatedView from "@/components/AnimatedView";
-import Card from "@/components/Card";
+import AnimatedView from "@/components/ui/AnimatedView";
+import Card from "@/components/ui/Card";
 import { Ionicons } from "@expo/vector-icons";
 import { Text, TouchableOpacity, View } from "react-native";
 

@@ -1,4 +1,4 @@
-import AnimatedView from "@/components/AnimatedView";
+import AnimatedView from "@/components/ui/AnimatedView";
 import { Ionicons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 

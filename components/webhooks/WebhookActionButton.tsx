@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text, View, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
-import AnimatedView from "./AnimatedView";
+import AnimatedView from "@/components/ui/AnimatedView";
 import { addOpacity } from "@/utils/colors";
 
 interface WebhookActionButtonProps {

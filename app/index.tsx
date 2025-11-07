@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from "react";
 import { FlatList, View } from "react-native";
-import AnimatedView from "@/components/AnimatedView";
-import Header from "@/components/Header";
-import InfoCard from "@/components/InfoCard";
-import QuickStats from "@/components/QuickStats";
-import CoinBoard from "@/components/CoinBoard";
-import Leaderboard from "@/components/Leaderboard";
-import StatsDashboard from "@/components/StatsDashboard";
+import AnimatedView from "@/components/ui/AnimatedView";
+import Header from "@/components/ui/Header";
+import InfoCard from "@/components/dashboard/InfoCard";
+import QuickStats from "@/components/dashboard/QuickStats";
+import CoinBoard from "@/components/coins/CoinBoard";
+import Leaderboard from "@/components/coins/Leaderboard";
+import StatsDashboard from "@/components/dashboard/StatsDashboard";
 
 import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
 import type { Coin } from "@/types";
