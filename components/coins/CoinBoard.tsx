@@ -56,7 +56,7 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
   }
 
   return (
-    <View className="mt-2 flex-1">
+    <View className="mt-2 flex-1 pb-10">
       {/* Selector de curso */}
       <CourseSelector
         courses={cursos}
