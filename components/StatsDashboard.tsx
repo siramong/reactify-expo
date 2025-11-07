@@ -86,10 +86,9 @@ export default function StatsDashboard({ coins, selectedCurso }: StatsDashboardP
             className="w-[48%] mb-3"
           >
             <View
-              className="p-4 rounded-xl"
+              className="p-4 rounded-xl border"
               style={{
                 backgroundColor: item.color + "15",
-                borderWidth: 1,
                 borderColor: item.color + "30",
               }}
             >

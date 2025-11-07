@@ -132,10 +132,9 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
                     {/* Monedas con efecto especial */}
                     <View className="items-center">
                       <View 
-                        className="rounded-2xl px-4 py-2"
+                        className="rounded-2xl px-4 py-2 border-2"
                         style={{ 
                           backgroundColor: color + "20",
-                          borderWidth: 2,
                           borderColor: color + "40",
                         }}
                       >
