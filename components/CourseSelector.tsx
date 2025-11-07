@@ -70,7 +70,7 @@ export default function CourseSelector({
                 name={icon} 
                 size={16} 
                 color={isActive ? color : "#9CA3AF"}
-                style={{ marginRight: 6 }}
+                className="mr-1.5"
               />
               <Text
                 className="text-sm font-bold"

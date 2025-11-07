@@ -140,7 +140,7 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
                         }}
                       >
                         <View className="flex-row items-center">
-                          <Ionicons name="logo-bitcoin" size={20} color={color} />
+                          <Ionicons name="cash" size={20} color={color} />
                           <Text className="text-xl font-extrabold ml-2" style={{ color }}>
                             {item.amount}
                           </Text>

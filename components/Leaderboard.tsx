@@ -73,7 +73,7 @@ export default function Leaderboard({ coins, selectedCurso }: LeaderboardProps) 
                 </View>
 
                 <View className="flex-row items-center">
-                  <Ionicons name="logo-bitcoin" size={18} color={rankColor} />
+                  <Ionicons name="cash" size={18} color={rankColor} />
                   <Text
                     className="text-lg font-extrabold ml-1"
                     style={{ color: rankColor }}

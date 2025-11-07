@@ -14,21 +14,11 @@ export default function Header({ title, subtitle, icon }: HeaderProps) {
       <View className="mb-6">
         <View className="flex-row items-center mb-2">
           {icon && (
-            <View 
-              className="rounded-xl p-2 mr-3"
-              style={{ backgroundColor: "#61DAFB20" }}
-            >
+            <View className="rounded-xl p-2 mr-3 bg-react-blue/[0.12]">
               <Ionicons name={icon} size={28} color="#61DAFB" />
             </View>
           )}
-          <Text 
-            className="text-white text-4xl font-extrabold"
-            style={{
-              textShadowColor: "#61DAFB40",
-              textShadowOffset: { width: 0, height: 2 },
-              textShadowRadius: 8,
-            }}
-          >
+          <Text className="text-white text-4xl font-extrabold">
             {title}
           </Text>
         </View>
