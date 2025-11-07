@@ -9,7 +9,7 @@ interface LoaderProps {
 
 export default function Loader({
   size = "large",
-  color = "#61DAFB",
+  color = "#7DD3FC",
   text,
 }: LoaderProps) {
   return (
@@ -18,7 +18,7 @@ export default function Loader({
       className="flex-1 items-center justify-center p-4"
     >
       <ActivityIndicator size={size} color={color} />
-      {text && <Text className="text-white mt-4 text-center">{text}</Text>}
+      {text && <Text className="text-slate-300 mt-4 text-center">{text}</Text>}
     </Animatable.View>
   );
 }

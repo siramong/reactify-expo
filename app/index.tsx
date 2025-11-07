@@ -40,7 +40,7 @@ export default function Index() {
 
   return (
     <FlatList
-      className="flex-1 bg-dark-bg p-4 pt-10"
+      className="flex-1 bg-background-primary p-4 pt-10"
       ListHeaderComponent={
         <AnimatedView>
           {/* Header e InfoCards */}
@@ -69,7 +69,7 @@ export default function Index() {
                   value={filteredCoins.length}
                   subtitle="Total activos"
                   delay={0}
-                  gradientColors={["#3B82F6", "#2563EB"]}
+                  gradientColors={["#7DD3FC", "#3B82F6"]}
                 />
               </View>
               <View className="flex-1">
@@ -79,7 +79,7 @@ export default function Index() {
                   value={totalCoins}
                   subtitle={`Promedio: ${avgCoins}`}
                   delay={100}
-                  gradientColors={["#F59E0B", "#D97706"]}
+                  gradientColors={["#FBBF24", "#D97706"]}
                 />
               </View>
             </View>

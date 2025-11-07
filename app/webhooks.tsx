@@ -5,7 +5,7 @@ import { ScrollView } from "react-native";
 
 export default function Webhooks() {
   return (
-    <ScrollView className="flex-1 bg-dark-bg p-4 pt-10">
+    <ScrollView className="flex-1 bg-background-primary p-4 pt-10">
       <AnimatedView>
         <Header
           title="Discord"

@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { status } from "@/theme";
 
 interface StatusBadgeProps {
   type: "success" | "error" | "warning" | "info";
@@ -14,39 +15,46 @@ export default function StatusBadge({
 }: StatusBadgeProps) {
   const styles = {
     success: {
-      container: "bg-green-500/10 border border-green-500/30",
-      text: "text-green-400",
+      container: "border border-glass-border-light",
+      backgroundColor: `${status.success}26`, // 15% opacity in hex
+      text: "text-emerald-400",
       iconName: "checkmark-circle" as const,
-      iconColor: "#10B981",
+      iconColor: status.success,
     },
     error: {
-      container: "bg-red-500/10 border border-red-500/30",
+      container: "border border-glass-border-light",
+      backgroundColor: `${status.error}26`,
       text: "text-red-400",
       iconName: "alert-circle" as const,
-      iconColor: "#EF4444",
+      iconColor: status.error,
     },
     warning: {
-      container: "bg-yellow-500/10 border border-yellow-500/30",
-      text: "text-yellow-400",
+      container: "border border-glass-border-light",
+      backgroundColor: `${status.warning}26`,
+      text: "text-amber-400",
       iconName: "warning" as const,
-      iconColor: "#F59E0B",
+      iconColor: status.warning,
     },
     info: {
-      container: "bg-blue-500/10 border border-blue-500/30",
-      text: "text-blue-400",
+      container: "border border-glass-border-light",
+      backgroundColor: `${status.info}26`,
+      text: "text-sky-400",
       iconName: "information-circle" as const,
-      iconColor: "#3B82F6",
+      iconColor: status.info,
     },
   };
 
   const style = styles[type];
 
   return (
-    <View className={`flex-row items-center p-3 rounded-xl ${style.container}`}>
+    <View 
+      className={`flex-row items-center p-3 rounded-2xl ${style.container}`}
+      style={{ backgroundColor: style.backgroundColor }}
+    >
       {icon && (
         <Ionicons name={style.iconName} size={20} color={style.iconColor} />
       )}
-      <Text className={`${style.text} ${icon ? "ml-2" : ""} flex-1`}>
+      <Text className={`${style.text} ${icon ? "ml-2" : ""} flex-1 font-medium`}>
         {message}
       </Text>
     </View>

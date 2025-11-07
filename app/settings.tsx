@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function Settings() {
   return (
-    <ScrollView className="flex-1 bg-dark-bg p-4 pt-10">
+    <ScrollView className="flex-1 bg-background-primary p-4 pt-10">
       <AnimatedView>
         <Header 
           title="Configuración" 
@@ -14,7 +14,7 @@ export default function Settings() {
           icon="settings"
         />
 
-        <Card variant="elevated" className="mb-4">
+        <Card variant="glass" className="mb-4">
           <View className="items-center py-6">
             <Image
               source={require("@/assets/images/supabase-logo.png")}
@@ -26,59 +26,59 @@ export default function Settings() {
                 Conectado a Supabase
               </Text>
             </View>
-            <Text className="text-gray-400 text-sm mt-2">
+            <Text className="text-slate-400 text-sm mt-2">
               Base de datos en tiempo real
             </Text>
           </View>
         </Card>
 
-        <Card variant="outlined" className="mb-4">
+        <Card variant="glass" className="mb-4">
           <View className="flex-row items-center mb-3">
-            <Ionicons name="build" size={24} color="#61DAFB" />
+            <Ionicons name="build" size={24} color="#7DD3FC" />
             <Text className="text-white text-lg font-semibold ml-2">
               Tecnologías
             </Text>
           </View>
           <View className="space-y-2">
-            <View className="flex-row items-center py-2 border-b border-dark-border">
-              <Ionicons name="logo-react" size={20} color="#61DAFB" />
-              <Text className="text-gray-300 ml-3">React Native & Expo</Text>
+            <View className="flex-row items-center py-2 border-b border-glass-border-light">
+              <Ionicons name="logo-react" size={20} color="#7DD3FC" />
+              <Text className="text-slate-300 ml-3">React Native & Expo</Text>
             </View>
-            <View className="flex-row items-center py-2 border-b border-dark-border">
-              <Ionicons name="server" size={20} color="#61DAFB" />
-              <Text className="text-gray-300 ml-3">
+            <View className="flex-row items-center py-2 border-b border-glass-border-light">
+              <Ionicons name="server" size={20} color="#7DD3FC" />
+              <Text className="text-slate-300 ml-3">
                 Supabase (Backend & DB)
               </Text>
             </View>
-            <View className="flex-row items-center py-2 border-b border-dark-border">
-              <Ionicons name="color-palette" size={20} color="#61DAFB" />
-              <Text className="text-gray-300 ml-3">
+            <View className="flex-row items-center py-2 border-b border-glass-border-light">
+              <Ionicons name="color-palette" size={20} color="#7DD3FC" />
+              <Text className="text-slate-300 ml-3">
                 NativeWind (Tailwind CSS)
               </Text>
             </View>
             <View className="flex-row items-center py-2">
-              <Ionicons name="flash" size={20} color="#61DAFB" />
-              <Text className="text-gray-300 ml-3">
+              <Ionicons name="flash" size={20} color="#7DD3FC" />
+              <Text className="text-slate-300 ml-3">
                 Real-time Subscriptions
               </Text>
             </View>
           </View>
         </Card>
 
-        <Card variant="default">
+        <Card variant="glass">
           <View className="flex-row items-center mb-3">
-            <Ionicons name="information-circle" size={24} color="#61DAFB" />
+            <Ionicons name="information-circle" size={24} color="#7DD3FC" />
             <Text className="text-white text-lg font-semibold ml-2">
               Acerca de
             </Text>
           </View>
-          <Text className="text-gray-400 text-sm">
+          <Text className="text-slate-400 text-sm">
             Reactify Dashboard es una aplicación de ejemplo que demuestra la
             integración de React Native, Expo, Supabase y webhooks de Discord
-            con una interfaz moderna y animaciones fluidas.
+            con una interfaz moderna con estilo Liquid Glass y animaciones fluidas.
           </Text>
-          <View className="flex-row items-center mt-4 pt-4 border-t border-dark-border">
-            <Text className="text-gray-500 text-xs">Versión 1.0.0</Text>
+          <View className="flex-row items-center mt-4 pt-4 border-t border-glass-border-light">
+            <Text className="text-slate-500 text-xs">Versión 1.0.0</Text>
           </View>
         </Card>
       </AnimatedView>
