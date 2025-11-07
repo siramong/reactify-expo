@@ -5,19 +5,20 @@ export default function Layout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#61DAFB",
-        tabBarInactiveTintColor: "#666",
+        tabBarActiveTintColor: "#7DD3FC",
+        tabBarInactiveTintColor: "#64748B",
         tabBarStyle: {
-          backgroundColor: "#161B22",
-          borderTopColor: "#30363D",
+          backgroundColor: "#1E293B",
+          borderTopColor: "rgba(255, 255, 255, 0.1)",
           borderTopWidth: 1,
-          paddingTop: 5,
-          paddingBottom: 5,
-          height: 60,
+          paddingTop: 8,
+          paddingBottom: 8,
+          height: 65,
         },
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "600",
+          marginTop: 4,
         },
         headerShown: false,
       }}

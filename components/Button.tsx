@@ -5,7 +5,7 @@ import * as Haptics from "expo-haptics";
 interface ButtonProps {
   title: string;
   onPress: () => void;
-  variant?: "primary" | "secondary" | "outline" | "success" | "danger";
+  variant?: "primary" | "secondary" | "outline" | "success" | "danger" | "glass";
   size?: "sm" | "md" | "lg";
   loading?: boolean;
   disabled?: boolean;
@@ -28,20 +28,21 @@ export default function Button({
     }
   };
 
-  const baseStyles = "rounded-xl flex-row items-center justify-center";
+  const baseStyles = "rounded-2xl flex-row items-center justify-center";
 
   const variantStyles = {
-    primary: "bg-react-blue",
-    secondary: "bg-dark-card border-2 border-react-blue",
-    outline: "border-2 border-react-blue",
+    primary: "bg-glass-primary",
+    secondary: "bg-glass-secondary",
+    outline: "border-2 border-glass-primary",
     success: "bg-green-500",
     danger: "bg-red-500",
+    glass: "border border-glass-border",
   };
 
   const sizeStyles = {
-    sm: "px-3 py-2",
-    md: "px-4 py-3",
-    lg: "px-6 py-4",
+    sm: "px-4 py-2",
+    md: "px-6 py-3",
+    lg: "px-8 py-4",
   };
 
   const textSizeStyles = {
@@ -51,12 +52,17 @@ export default function Button({
   };
 
   const textColorStyles = {
-    primary: "text-black",
-    secondary: "text-react-blue",
-    outline: "text-react-blue",
+    primary: "text-background-primary",
+    secondary: "text-white",
+    outline: "text-glass-primary",
     success: "text-white",
     danger: "text-white",
+    glass: "text-white",
   };
+
+  const glassStyle = variant === "glass" ? {
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+  } : {};
 
   const opacity = disabled || loading ? 0.5 : 1;
 
@@ -64,12 +70,12 @@ export default function Button({
     <TouchableOpacity
       onPress={handlePress}
       className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} mt-3`}
-      style={{ opacity }}
+      style={{ opacity, ...glassStyle }}
       activeOpacity={0.7}
       disabled={disabled || loading}
     >
       {loading ? (
-        <ActivityIndicator color={variant === "primary" || variant === "success" || variant === "danger" ? "#FFF" : "#61DAFB"} />
+        <ActivityIndicator color={variant === "outline" ? "#7DD3FC" : "#FFF"} />
       ) : (
         <View className="flex-row items-center">
           {icon && (
@@ -78,10 +84,10 @@ export default function Button({
               size={size === "lg" ? 24 : size === "sm" ? 16 : 20} 
               color={
                 variant === "primary"
-                  ? "#000"
-                  : variant === "success" || variant === "danger"
-                  ? "#FFF"
-                  : "#61DAFB"
+                  ? "#0F172A"
+                  : variant === "outline"
+                  ? "#7DD3FC"
+                  : "#FFF"
               }
               className="mr-2"
             />
