@@ -1,6 +1,6 @@
 export default {
-  primary: "#61DAFB",
-  background: "#0D1117",
-  card: "#161B22",
-  text: "#FFFFFF",
+  primary: "#7DD3FC",      // Updated to Liquid Glass primary
+  background: "#0F172A",   // Updated to match new theme
+  card: "#1E293B",         // Updated to background.secondary
+  text: "#F8FAFC",         // Updated to text.primary
 };
