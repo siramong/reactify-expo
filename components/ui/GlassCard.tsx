@@ -1,5 +1,6 @@
 import { View, ViewProps } from "react-native";
 import { ReactNode } from "react";
+import { shadows } from "@/theme/effects";
 
 interface GlassCardProps extends ViewProps {
   children: ReactNode;
@@ -34,24 +35,11 @@ export default function GlassCard({
     strong: 0.2,
   };
 
-  // Glass glow effect
+  // Glass glow effect - use theme shadows
   const glowStyle = {
     backgroundColor: `rgba(255, 255, 255, ${backgroundOpacity[variant]})`,
-    ...(glowColor
-      ? {
-          shadowColor: glowColor,
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.4,
-          shadowRadius: 12,
-          elevation: 8,
-        }
-      : {
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.2,
-          shadowRadius: 8,
-          elevation: 4,
-        }),
+    ...(glowColor ? shadows.colored : shadows.lg),
+    ...(glowColor && { shadowColor: glowColor }),
   };
 
   return (

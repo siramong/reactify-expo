@@ -1,6 +1,13 @@
+/**
+ * Legacy color constants - for backward compatibility
+ * @deprecated Use theme colors from '@/theme' instead
+ */
+
+import { glass, background, text } from '@/theme';
+
 export default {
-  primary: "#7DD3FC",      // Updated to Liquid Glass primary
-  background: "#0F172A",   // Updated to match new theme
-  card: "#1E293B",         // Updated to background.secondary
-  text: "#F8FAFC",         // Updated to text.primary
+  primary: glass.primary,
+  background: background.primary,
+  card: background.secondary,
+  text: text.primary,
 };

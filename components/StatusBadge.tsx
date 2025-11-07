@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { status } from "@/theme";
 
 interface StatusBadgeProps {
   type: "success" | "error" | "warning" | "info";
@@ -15,31 +16,31 @@ export default function StatusBadge({
   const styles = {
     success: {
       container: "border border-glass-border-light",
-      backgroundColor: 'rgba(52, 211, 153, 0.15)',
+      backgroundColor: `${status.success}26`, // 15% opacity in hex
       text: "text-emerald-400",
       iconName: "checkmark-circle" as const,
-      iconColor: "#34D399",
+      iconColor: status.success,
     },
     error: {
       container: "border border-glass-border-light",
-      backgroundColor: 'rgba(248, 113, 113, 0.15)',
+      backgroundColor: `${status.error}26`,
       text: "text-red-400",
       iconName: "alert-circle" as const,
-      iconColor: "#F87171",
+      iconColor: status.error,
     },
     warning: {
       container: "border border-glass-border-light",
-      backgroundColor: 'rgba(251, 191, 36, 0.15)',
+      backgroundColor: `${status.warning}26`,
       text: "text-amber-400",
       iconName: "warning" as const,
-      iconColor: "#FBBF24",
+      iconColor: status.warning,
     },
     info: {
       container: "border border-glass-border-light",
-      backgroundColor: 'rgba(125, 211, 252, 0.15)',
+      backgroundColor: `${status.info}26`,
       text: "text-sky-400",
       iconName: "information-circle" as const,
-      iconColor: "#7DD3FC",
+      iconColor: status.info,
     },
   };
 
