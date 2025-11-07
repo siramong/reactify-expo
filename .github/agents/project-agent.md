@@ -1,5 +1,5 @@
 ---
-name: React Native + Expo + NativeWind
+name: React Native + Expo + NativeWind Agent
 description: Specialized GitHub Agent for developing modern mobile applications using React Native, Expo, and NativeWind.
 ---
 
