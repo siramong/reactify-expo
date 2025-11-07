@@ -41,7 +41,7 @@ export default function Leaderboard({ coins, selectedCurso }: LeaderboardProps) 
           const rankIcon = RANK_ICONS[index] || "star";
 
           return (
-            <AnimatedView key={student.id} delay={index * 100}>
+            <AnimatedView key={student.userId} delay={index * 100}>
               <View
                 className="flex-row items-center p-4 rounded-2xl"
                 style={{
@@ -52,6 +52,8 @@ export default function Leaderboard({ coins, selectedCurso }: LeaderboardProps) 
                   shadowOffset: { width: 0, height: 4 },
                   shadowOpacity: 0.4,
                   shadowRadius: 8,
+                  marginTop: 5,
+                  marginBottom: 5
                 }}
               >
                 <View
