@@ -28,6 +28,55 @@ Web previews will be started and managred automatically. Use the toolbar to manu
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
+## BotGhost Webhook Configuration
+
+This app integrates with BotGhost webhooks to trigger Discord bot actions. Here's how to configure and extend webhook functionality:
+
+### Environment Variables
+
+Set these variables in your `.env` file (see `.env.example`):
+
+```
+EXPO_PUBLIC_BOTGHOST_GUILD_ID=YOUR_BOT_ID
+EXPO_PUBLIC_BOTGHOST_API_KEY=YOUR_API_KEY
+EXPO_PUBLIC_BOTGHOST_WEBHOOK_ID=YOUR_DEFAULT_WEBHOOK_EVENT_ID
+```
+
+### Adding New Webhook Events
+
+To add new webhook event types:
+
+1. **Add Event ID to config** (`constants/config.ts`):
+```typescript
+export const WEBHOOK_EVENTS = {
+  DEFAULT: getEnvVar("EXPO_PUBLIC_BOTGHOST_WEBHOOK_ID"),
+  USER_JOINED: "your_user_joined_event_id",  // Add your event ID
+  COIN_EARNED: "your_coin_earned_event_id",
+  LEVEL_UP: "your_level_up_event_id",
+} as const;
+```
+
+2. **Add Action Button** (`components/webhooks/WebhookPanel.tsx`):
+```typescript
+const WEBHOOK_ACTIONS: WebhookAction[] = [
+  // ... existing actions
+  {
+    eventType: "USER_JOINED",
+    title: "Usuario Unido",
+    description: "Notifica que un usuario se unió",
+    icon: "person-add",
+    color: "#10B981",
+    withData: false,  // true if action needs custom data fields
+  },
+];
+```
+
+### Webhook Behavior
+
+- **Actions with `withData: false`**: Execute immediately when button is pressed
+- **Actions with `withData: true`**: Open modal for user to input custom fields
+- All EVENT_IDs are predefined by developers, users only execute actions
+
 ## Get a fresh project
 
 When you're ready, run:

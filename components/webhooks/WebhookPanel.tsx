@@ -7,10 +7,49 @@ import StatusBadge from "@/components/ui/StatusBadge";
 import AnimatedView from "@/components/ui/AnimatedView";
 import WebhookActionButton from "@/components/webhooks/WebhookActionButton";
 import { sendWebhook } from "@/services/webhook";
-import { WEBHOOK_EVENTS } from "@/constants/config";
+import { WEBHOOK_EVENTS, WebhookEventType } from "@/constants/config";
 import { Ionicons } from "@expo/vector-icons";
 
 type ActionMode = "event" | "data" | null;
+
+interface WebhookAction {
+  eventType: WebhookEventType;
+  title: string;
+  description: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  color: string;
+  withData: boolean;
+}
+
+// Define your predefined webhook actions here
+const WEBHOOK_ACTIONS: WebhookAction[] = [
+  {
+    eventType: "DEFAULT",
+    title: "Ejecutar Evento",
+    description: "Dispara un evento instantáneo en BotGhost",
+    icon: "flash",
+    color: "#F59E0B",
+    withData: false,
+  },
+  {
+    eventType: "DEFAULT",
+    title: "Enviar Datos",
+    description: "Envía información personalizada al bot",
+    icon: "send",
+    color: "#8B5CF6",
+    withData: true,
+  },
+  // Add more predefined actions here as needed
+  // Example:
+  // {
+  //   eventType: "USER_JOINED",
+  //   title: "Usuario Unido",
+  //   description: "Notifica que un usuario se unió",
+  //   icon: "person-add",
+  //   color: "#10B981",
+  //   withData: false,
+  // },
+];
 
 export default function WebhookPanel() {
   const [fields, setFields] = useState(Array(10).fill(""));
@@ -20,6 +59,7 @@ export default function WebhookPanel() {
   }>({ type: null, message: "" });
   const [loading, setLoading] = useState(false);
   const [activeMode, setActiveMode] = useState<ActionMode>(null);
+  const [currentAction, setCurrentAction] = useState<WebhookAction | null>(null);
 
   const handleChange = (index: number, value: string) => {
     const copy = [...fields];
@@ -27,17 +67,37 @@ export default function WebhookPanel() {
     setFields(copy);
   };
 
-  const handleEventTrigger = async () => {
+  const handleActionPress = async (action: WebhookAction) => {
+    if (action.withData) {
+      // If action requires data, open modal
+      setCurrentAction(action);
+      setActiveMode("data");
+    } else {
+      // If action doesn't require data, execute immediately
+      await executeWebhook(action, {});
+    }
+  };
+
+  const executeWebhook = async (action: WebhookAction, payload?: Record<string, any>) => {
     setLoading(true);
     setActiveMode("event");
     setStatus({ type: null, message: "" });
 
     try {
-      // Trigger a simple event without data
-      const ok = await sendWebhook(WEBHOOK_EVENTS.DEFAULT, { 
-        event: "trigger",
-        timestamp: new Date().toISOString() 
-      });
+      const eventId = WEBHOOK_EVENTS[action.eventType];
+      
+      if (!eventId) {
+        setStatus({
+          type: "error",
+          message: "Event ID no configurado. Verifica las variables de entorno.",
+        });
+        setLoading(false);
+        setActiveMode(null);
+        return;
+      }
+
+      // Send webhook with or without data based on payload
+      const ok = await sendWebhook(eventId, payload);
 
       if (ok) {
         setStatus({
@@ -47,7 +107,7 @@ export default function WebhookPanel() {
       } else {
         setStatus({
           type: "error",
-          message: "Error al ejecutar evento. Intenta nuevamente.",
+          message: "Error al ejecutar evento. Verifica tu configuración.",
         });
       }
     } catch {
@@ -62,6 +122,8 @@ export default function WebhookPanel() {
   };
 
   const handleDataSubmit = async () => {
+    if (!currentAction) return;
+
     setLoading(true);
     setStatus({ type: null, message: "" });
 
@@ -82,7 +144,18 @@ export default function WebhookPanel() {
         return;
       }
 
-      const ok = await sendWebhook(WEBHOOK_EVENTS.DEFAULT, payload);
+      const eventId = WEBHOOK_EVENTS[currentAction.eventType];
+      
+      if (!eventId) {
+        setStatus({
+          type: "error",
+          message: "Event ID no configurado. Verifica las variables de entorno.",
+        });
+        setLoading(false);
+        return;
+      }
+
+      const ok = await sendWebhook(eventId, payload);
 
       if (ok) {
         setStatus({
@@ -91,10 +164,11 @@ export default function WebhookPanel() {
         });
         setFields(Array(10).fill(""));
         setActiveMode(null);
+        setCurrentAction(null);
       } else {
         setStatus({
           type: "error",
-          message: "Error al enviar datos. Intenta nuevamente.",
+          message: "Error al enviar datos. Verifica tu configuración.",
         });
       }
     } catch {
@@ -121,27 +195,20 @@ export default function WebhookPanel() {
         </Text>
       </Card>
 
-      {/* Main Action Buttons */}
-      <WebhookActionButton
-        title="Ejecutar Evento"
-        description="Dispara un evento instantáneo en BotGhost"
-        icon="flash"
-        color="#F59E0B"
-        onPress={handleEventTrigger}
-        loading={loading && activeMode === "event"}
-        disabled={loading}
-        delay={0}
-      />
-
-      <WebhookActionButton
-        title="Enviar Datos"
-        description="Envía información personalizada al bot"
-        icon="send"
-        color="#8B5CF6"
-        onPress={() => setActiveMode("data")}
-        disabled={loading}
-        delay={100}
-      />
+      {/* Render all predefined webhook actions */}
+      {WEBHOOK_ACTIONS.map((action, index) => (
+        <WebhookActionButton
+          key={index}
+          title={action.title}
+          description={action.description}
+          icon={action.icon}
+          color={action.color}
+          onPress={() => handleActionPress(action)}
+          loading={loading && currentAction?.title === action.title}
+          disabled={loading}
+          delay={index * 100}
+        />
+      ))}
 
       {status.type && (
         <AnimatedView animation="bounceIn" className="mt-2 mb-4">
@@ -154,7 +221,10 @@ export default function WebhookPanel() {
         visible={activeMode === "data"}
         animationType="slide"
         transparent={true}
-        onRequestClose={() => setActiveMode(null)}
+        onRequestClose={() => {
+          setActiveMode(null);
+          setCurrentAction(null);
+        }}
       >
         <View className="flex-1 bg-black/80 justify-end">
           <View className="bg-dark-bg rounded-t-3xl p-6 max-h-[90%]">
@@ -162,10 +232,13 @@ export default function WebhookPanel() {
               <View className="flex-row items-center">
                 <Ionicons name="send" size={24} color="#8B5CF6" />
                 <Text className="text-white text-xl font-bold ml-2">
-                  Enviar Datos
+                  {currentAction?.title || "Enviar Datos"}
                 </Text>
               </View>
-              <TouchableOpacity onPress={() => setActiveMode(null)}>
+              <TouchableOpacity onPress={() => {
+                setActiveMode(null);
+                setCurrentAction(null);
+              }}>
                 <Ionicons name="close-circle" size={28} color="#666" />
               </TouchableOpacity>
             </View>
@@ -197,7 +270,10 @@ export default function WebhookPanel() {
 
               <Button
                 title="Cancelar"
-                onPress={() => setActiveMode(null)}
+                onPress={() => {
+                  setActiveMode(null);
+                  setCurrentAction(null);
+                }}
                 variant="outline"
                 size="md"
               />
