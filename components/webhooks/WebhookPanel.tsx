@@ -12,6 +12,11 @@ import { Ionicons } from "@expo/vector-icons";
 
 type ActionMode = "event" | "data" | null;
 
+interface WebhookEventConfig {
+  eventId: string;
+  withData: boolean;
+}
+
 export default function WebhookPanel() {
   const [fields, setFields] = useState(Array(10).fill(""));
   const [status, setStatus] = useState<{
@@ -20,11 +25,19 @@ export default function WebhookPanel() {
   }>({ type: null, message: "" });
   const [loading, setLoading] = useState(false);
   const [activeMode, setActiveMode] = useState<ActionMode>(null);
+  const [eventConfig, setEventConfig] = useState<WebhookEventConfig>({
+    eventId: WEBHOOK_EVENTS.DEFAULT || "",
+    withData: false,
+  });
 
   const handleChange = (index: number, value: string) => {
     const copy = [...fields];
     copy[index] = value;
     setFields(copy);
+  };
+
+  const handleEventIdChange = (value: string) => {
+    setEventConfig({ ...eventConfig, eventId: value });
   };
 
   const handleEventTrigger = async () => {
@@ -33,11 +46,18 @@ export default function WebhookPanel() {
     setStatus({ type: null, message: "" });
 
     try {
+      if (!eventConfig.eventId.trim()) {
+        setStatus({
+          type: "error",
+          message: "Por favor, ingresa un Event ID válido",
+        });
+        setLoading(false);
+        setActiveMode(null);
+        return;
+      }
+
       // Trigger a simple event without data
-      const ok = await sendWebhook(WEBHOOK_EVENTS.DEFAULT, { 
-        event: "trigger",
-        timestamp: new Date().toISOString() 
-      });
+      const ok = await sendWebhook(eventConfig.eventId);
 
       if (ok) {
         setStatus({
@@ -47,7 +67,7 @@ export default function WebhookPanel() {
       } else {
         setStatus({
           type: "error",
-          message: "Error al ejecutar evento. Intenta nuevamente.",
+          message: "Error al ejecutar evento. Verifica tu Event ID y configuración.",
         });
       }
     } catch {
@@ -66,6 +86,15 @@ export default function WebhookPanel() {
     setStatus({ type: null, message: "" });
 
     try {
+      if (!eventConfig.eventId.trim()) {
+        setStatus({
+          type: "error",
+          message: "Por favor, ingresa un Event ID válido",
+        });
+        setLoading(false);
+        return;
+      }
+
       const payload: any = {};
       fields.forEach((val, i) => {
         if (val.trim()) {
@@ -82,7 +111,7 @@ export default function WebhookPanel() {
         return;
       }
 
-      const ok = await sendWebhook(WEBHOOK_EVENTS.DEFAULT, payload);
+      const ok = await sendWebhook(eventConfig.eventId, payload);
 
       if (ok) {
         setStatus({
@@ -94,7 +123,7 @@ export default function WebhookPanel() {
       } else {
         setStatus({
           type: "error",
-          message: "Error al enviar datos. Intenta nuevamente.",
+          message: "Error al enviar datos. Verifica tu Event ID y configuración.",
         });
       }
     } catch {
@@ -118,6 +147,25 @@ export default function WebhookPanel() {
         </View>
         <Text className="text-gray-400 text-sm">
           Ejecuta eventos o envía datos personalizados a tu bot de Discord con un solo toque.
+        </Text>
+      </Card>
+
+      {/* Event ID Configuration */}
+      <Card variant="default" className="mb-4">
+        <View className="flex-row items-center mb-3">
+          <Ionicons name="settings-outline" size={20} color="#10B981" />
+          <Text className="text-white text-base font-semibold ml-2">
+            Configuración del Evento
+          </Text>
+        </View>
+        <Input
+          label="Event ID"
+          placeholder="Ingresa tu Event ID de BotGhost"
+          value={eventConfig.eventId}
+          onChangeText={handleEventIdChange}
+        />
+        <Text className="text-gray-500 text-xs mt-1">
+          El Event ID es único para cada acción en BotGhost
         </Text>
       </Card>
 
@@ -172,7 +220,26 @@ export default function WebhookPanel() {
 
             <ScrollView showsVerticalScrollIndicator={false}>
               <Text className="text-gray-400 text-sm mb-4">
-                Completa los campos que desees enviar al bot
+                Configura el Event ID y completa los campos que desees enviar al bot
+              </Text>
+
+              {/* Event ID in Modal */}
+              <View className="mb-4 p-4 bg-dark-card rounded-xl border border-gray-700">
+                <View className="flex-row items-center mb-2">
+                  <Ionicons name="settings-outline" size={18} color="#10B981" />
+                  <Text className="text-white text-sm font-semibold ml-2">
+                    Event ID
+                  </Text>
+                </View>
+                <Input
+                  placeholder="Event ID de BotGhost"
+                  value={eventConfig.eventId}
+                  onChangeText={handleEventIdChange}
+                />
+              </View>
+
+              <Text className="text-gray-400 text-sm mb-3 font-semibold">
+                Datos a enviar:
               </Text>
 
               {fields.map((f, i) => (
