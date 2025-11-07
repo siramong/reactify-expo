@@ -30,21 +30,24 @@ export default function Input({
         <Text className="text-white text-sm font-medium mb-2">{label}</Text>
       )}
       <View
-        className={`flex-row items-center bg-dark-card rounded-xl ${error ? "border-2 border-red-500" : "border border-dark-border"}`}
+        className={`flex-row items-center rounded-2xl border ${error ? "border-red-400" : "border-glass-border"}`}
+        style={{ 
+          backgroundColor: error ? 'rgba(248, 113, 113, 0.1)' : 'rgba(255, 255, 255, 0.1)',
+        }}
       >
         {icon && <View className="pl-3">{icon}</View>}
         <TextInput
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
-          className="flex-1 text-white p-3"
-          placeholderTextColor="#888"
+          className="flex-1 text-white p-4"
+          placeholderTextColor="#64748B"
           multiline={multiline}
           numberOfLines={numberOfLines}
           keyboardType={keyboardType}
         />
       </View>
-      {error && <Text className="text-red-500 text-xs mt-1">{error}</Text>}
+      {error && <Text className="text-red-400 text-xs mt-1 ml-1">{error}</Text>}
     </View>
   );
 }
