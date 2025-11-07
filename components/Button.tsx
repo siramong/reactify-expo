@@ -83,7 +83,7 @@ export default function Button({
                   ? "#FFF"
                   : "#61DAFB"
               }
-              style={{ marginRight: 8 }}
+              className="mr-2"
             />
           )}
           <Text

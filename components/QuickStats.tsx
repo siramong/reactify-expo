@@ -45,11 +45,7 @@ export default function QuickStats({
           {stats.map((stat, index) => (
             <View
               key={stat.label}
-              className="flex-1 items-center"
-              style={{
-                borderRightWidth: index < stats.length - 1 ? 1 : 0,
-                borderRightColor: "#374151",
-              }}
+              className={`flex-1 items-center ${index < stats.length - 1 ? 'border-r border-gray-700' : ''}`}
             >
               <View
                 className="rounded-full p-2 mb-2"

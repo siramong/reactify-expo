@@ -7,7 +7,7 @@ import QuickStats from "@/components/QuickStats";
 import CoinBoard from "@/components/CoinBoard";
 import Leaderboard from "@/components/Leaderboard";
 import StatsDashboard from "@/components/StatsDashboard";
-import AchievementsBadges from "@/components/AchievementsBadges";
+
 import { useRealtimeCoins } from "@/hooks/useRealtimeCoins";
 import type { Coin } from "@/types";
 import "@/global.css";
@@ -85,23 +85,16 @@ export default function Index() {
             </View>
           </View>
 
-          {/* Achievements System */}
-          {coins.length > 0 && (
-            <AnimatedView delay={200}>
-              <AchievementsBadges coins={coins} />
-            </AnimatedView>
-          )}
-
           {/* Leaderboard */}
           {coins.length > 0 && (
-            <AnimatedView delay={300}>
+            <AnimatedView delay={200}>
               <Leaderboard coins={coins} selectedCurso={selectedCurso} />
             </AnimatedView>
           )}
 
           {/* Statistics Dashboard */}
           {filteredCoins.length > 0 && (
-            <AnimatedView delay={400}>
+            <AnimatedView delay={300}>
               <StatsDashboard coins={coins} selectedCurso={selectedCurso} />
             </AnimatedView>
           )}

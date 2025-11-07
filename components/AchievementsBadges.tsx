@@ -102,12 +102,11 @@ export default function AchievementsBadges({ coins }: AchievementsBadgesProps) {
           {achievements.map((achievement, index) => (
             <AnimatedView key={achievement.id} delay={index * 80}>
               <View
-                className="mr-3 rounded-2xl p-4 w-40"
+                className="mr-3 rounded-2xl p-4 w-40 border-2"
                 style={{
                   backgroundColor: achievement.unlocked
                     ? achievement.color + "20"
                     : "#1F2937",
-                  borderWidth: 2,
                   borderColor: achievement.unlocked
                     ? achievement.color + "50"
                     : "#374151",

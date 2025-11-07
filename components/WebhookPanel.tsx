@@ -157,7 +157,7 @@ export default function WebhookPanel() {
         onRequestClose={() => setActiveMode(null)}
       >
         <View className="flex-1 bg-black/80 justify-end">
-          <View className="bg-dark-bg rounded-t-3xl p-6" style={{ maxHeight: "90%" }}>
+          <View className="bg-dark-bg rounded-t-3xl p-6 max-h-[90%]">
             <View className="flex-row justify-between items-center mb-4">
               <View className="flex-row items-center">
                 <Ionicons name="send" size={24} color="#8B5CF6" />
