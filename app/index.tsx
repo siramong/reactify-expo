@@ -87,14 +87,14 @@ export default function Index() {
 
           {/* Leaderboard */}
           {coins.length > 0 && (
-            <AnimatedView delay={300}>
+            <AnimatedView delay={200}>
               <Leaderboard coins={coins} selectedCurso={selectedCurso} />
             </AnimatedView>
           )}
 
           {/* Statistics Dashboard */}
           {filteredCoins.length > 0 && (
-            <AnimatedView delay={400}>
+            <AnimatedView delay={300}>
               <StatsDashboard coins={coins} selectedCurso={selectedCurso} />
             </AnimatedView>
           )}
