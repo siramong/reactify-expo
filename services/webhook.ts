@@ -1,10 +1,10 @@
-import { BOTGHOST_GUILD_ID, BOTGHOST_API_KEY } from "@/constants/config";
+import { BOTGHOST_BOT_ID, BOTGHOST_API_KEY } from "@/constants/config";
 
 export const sendWebhook = async (
   eventId: string,
   payload?: Record<string, any>
 ) => {
-  const url = `https://api.botghost.com/webhook/${BOTGHOST_GUILD_ID}/${eventId}`;
+  const url = `https://api.botghost.com/webhook/${BOTGHOST_BOT_ID}/${eventId}`;
   
   // Only include body with variables if payload is provided and not empty
   const hasPayload = payload && Object.keys(payload).length > 0;

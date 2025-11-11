@@ -10,13 +10,13 @@ const getEnvVar = (key: string, defaultValue: string = ""): string => {
   return value || defaultValue;
 };
 
-export const BOTGHOST_GUILD_ID = getEnvVar("EXPO_PUBLIC_BOTGHOST_GUILD_ID");
+export const BOTGHOST_BOT_ID = getEnvVar("EXPO_PUBLIC_BOTGHOST_BOT_ID");
 export const BOTGHOST_API_KEY = getEnvVar("EXPO_PUBLIC_BOTGHOST_API_KEY");
 
 // Predefined webhook event IDs
 // You can add more event IDs here for different actions
 export const WEBHOOK_EVENTS = {
-  DEFAULT: getEnvVar("EXPO_PUBLIC_BOTGHOST_WEBHOOK_ID"),
+  DEFAULT: getEnvVar("EXPO_PUBLIC_BOTGHOST_EVENT_ID"),
   // Add more predefined event IDs here as needed
   // Example:
   // USER_JOINED: "your_user_joined_event_id",
