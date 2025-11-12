@@ -49,7 +49,7 @@ export default function CoinBoard({ selectedCurso, onCursoChange }: CoinBoardPro
       <EmptyState
         icon="wallet-outline"
         title="No hay monedas disponibles"
-        description="Los datos aparecerán aquí en tiempo real"
+        description="Usa el botón de actualizar para cargar los datos"
         iconColor="#61DAFB"
       />
     );

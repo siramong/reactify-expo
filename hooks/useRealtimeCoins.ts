@@ -7,18 +7,6 @@ export const useRealtimeCoins = () => {
 
   useEffect(() => {
     fetchCoins();
-    const channel = supabase
-      .channel("public:coins")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "coins" },
-        () => fetchCoins()
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
   }, []);
 
   const fetchCoins = async () => {
@@ -36,6 +24,7 @@ export const useRealtimeCoins = () => {
   };
 
   const refresh = async () => {
+    setLoading(true);
     await fetchCoins();
   };
 
