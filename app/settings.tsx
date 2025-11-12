@@ -134,7 +134,7 @@ export default function Settings() {
             presentando una interfaz elegante y animaciones fluidas.
           </Text>
           <View className="flex-row items-center justify-between mt-5 pt-4 border-t-2 border-dark-border">
-            <Text className="text-gray-500 text-sm font-semibold">Versión 2.0.0</Text>
+            <Text className="text-gray-500 text-sm font-semibold">Versión 3.0.0</Text>
             <View className="flex-row items-center">
               <Ionicons name="checkmark-circle" size={16} color="#10B981" />
               <Text className="text-green-500 text-xs ml-1 font-semibold">Actualizado</Text>
