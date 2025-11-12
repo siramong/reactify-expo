@@ -40,36 +40,47 @@ export default function QuickStats({
 
   return (
     <AnimatedView delay={150}>
-      <Card variant="elevated" className="mb-4">
+      <Card variant="elevated" className="mb-5">
         <View className="flex-row justify-between items-center">
           {stats.map((stat, index) => (
             <View
               key={stat.label}
-              className={`flex-1 items-center ${index < stats.length - 1 ? 'border-r border-gray-700' : ''}`}
+              className={`flex-1 items-center px-2 ${index < stats.length - 1 ? 'border-r-2 border-gray-700/50' : ''}`}
             >
               <View
-                className="rounded-full p-2 mb-2"
-                style={{ backgroundColor: stat.color + "20" }}
+                className="rounded-2xl p-3 mb-2"
+                style={{ 
+                  backgroundColor: stat.color + "20",
+                  shadowColor: stat.color,
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 4,
+                }}
               >
-                <Ionicons name={stat.icon} size={20} color={stat.color} />
+                <Ionicons name={stat.icon} size={24} color={stat.color} />
               </View>
               <Text
                 className="text-2xl font-extrabold"
                 style={{ color: stat.color }}
               >
-                {stat.value}
+                {stat.value.toLocaleString()}
               </Text>
-              <Text className="text-gray-400 text-xs uppercase mt-1">
+              <Text className="text-gray-400 text-xs uppercase mt-1 font-semibold tracking-wider">
                 {stat.label}
               </Text>
             </View>
           ))}
         </View>
         {topCourse && (
-          <View className="mt-3 pt-3 border-t border-dark-border flex-row items-center justify-center">
-            <Ionicons name="star" size={16} color="#FFD700" />
-            <Text className="text-gray-400 text-xs ml-2">
-              Curso destacado: <Text className="text-white font-bold">{topCourse}</Text>
+          <View className="mt-4 pt-4 border-t-2 border-dark-border flex-row items-center justify-center">
+            <View 
+              className="rounded-full p-1.5"
+              style={{ backgroundColor: "#FFD70030" }}
+            >
+              <Ionicons name="trophy" size={16} color="#FFD700" />
+            </View>
+            <Text className="text-gray-400 text-sm ml-2">
+              Curso destacado: <Text className="text-amber-400 font-bold">{topCourse}</Text>
             </Text>
           </View>
         )}

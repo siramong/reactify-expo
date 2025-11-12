@@ -41,30 +41,36 @@ export default function Index() {
 
   return (
     <FlatList
-      className="flex-1 bg-dark-bg p-4 pt-10"
+      className="flex-1 bg-dark-bg p-5 pt-12"
       ListHeaderComponent={
         <AnimatedView>
           {/* Header e InfoCards */}
-          <View className="flex-row items-center justify-between mb-4">
+          <View className="flex-row items-center justify-between mb-5">
             <View className="flex-1">
               <Header
                 title="Dashboard"
-                subtitle="Monitorea las monedas"
+                subtitle="Monitoreo de monedas en tiempo real"
                 icon="stats-chart"
               />
             </View>
             <TouchableOpacity
               onPress={refresh}
               disabled={loading}
-              className="ml-3 bg-blue-600 rounded-xl px-4 py-3 flex-row items-center"
-              style={{ opacity: loading ? 0.6 : 1 }}
+              className="ml-3 bg-blue-600 rounded-2xl px-5 py-3.5 flex-row items-center"
+              style={{ 
+                opacity: loading ? 0.6 : 1,
+                shadowColor: "#3B82F6",
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.3,
+                shadowRadius: 6,
+              }}
             >
               {loading ? (
                 <ActivityIndicator size="small" color="#ffffff" />
               ) : (
                 <Ionicons name="refresh" size={20} color="#ffffff" />
               )}
-              <Text className="text-white font-semibold ml-2">
+              <Text className="text-white font-bold ml-2">
                 {loading ? "Actualizando..." : "Actualizar"}
               </Text>
             </TouchableOpacity>
@@ -80,8 +86,8 @@ export default function Index() {
             />
           )}
 
-          <View className="mb-4">
-            <View className="flex-row space-x-2 place-content-between gap-5">
+          <View className="mb-5">
+            <View className="flex-row space-x-3 gap-3">
               <View className="flex-1">
                 <InfoCard
                   icon="people"
@@ -96,8 +102,8 @@ export default function Index() {
                 <InfoCard
                   icon="wallet"
                   title="Total Monedas"
-                  value={totalCoins}
-                  subtitle={`Promedio: ${avgCoins}`}
+                  value={totalCoins.toLocaleString()}
+                  subtitle={`Promedio: ${avgCoins.toLocaleString()}`}
                   delay={100}
                   gradientColors={["#F59E0B", "#D97706"]}
                 />

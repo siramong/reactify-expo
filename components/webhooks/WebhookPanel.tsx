@@ -183,14 +183,19 @@ export default function WebhookPanel() {
 
   return (
     <View>
-      <Card variant="outlined" className="mb-6">
-        <View className="flex-row items-center mb-2">
-          <Ionicons name="information-circle" size={24} color="#61DAFB" />
-          <Text className="text-white text-lg font-semibold ml-2">
+      <Card variant="elevated" className="mb-6">
+        <View className="flex-row items-center mb-3">
+          <View 
+            className="rounded-2xl p-2 mr-3"
+            style={{ backgroundColor: "#5865F220" }}
+          >
+            <Ionicons name="information-circle" size={24} color="#5865F2" />
+          </View>
+          <Text className="text-white text-xl font-bold">
             Control de Discord
           </Text>
         </View>
-        <Text className="text-gray-400 text-sm">
+        <Text className="text-gray-400 text-sm leading-6">
           Ejecuta eventos o envía datos personalizados a tu bot de Discord con un solo toque.
         </Text>
       </Card>
@@ -211,7 +216,7 @@ export default function WebhookPanel() {
       ))}
 
       {status.type && (
-        <AnimatedView animation="bounceIn" className="mt-2 mb-4">
+        <AnimatedView animation="bounceIn" className="mt-3 mb-5">
           <StatusBadge type={status.type} message={status.message} />
         </AnimatedView>
       )}
@@ -228,10 +233,15 @@ export default function WebhookPanel() {
       >
         <View className="flex-1 bg-black/80 justify-end">
           <View className="bg-dark-bg rounded-t-3xl p-6 max-h-[90%]">
-            <View className="flex-row justify-between items-center mb-4">
+            <View className="flex-row justify-between items-center mb-5">
               <View className="flex-row items-center">
-                <Ionicons name="send" size={24} color="#8B5CF6" />
-                <Text className="text-white text-xl font-bold ml-2">
+                <View 
+                  className="rounded-2xl p-2 mr-3"
+                  style={{ backgroundColor: "#8B5CF620" }}
+                >
+                  <Ionicons name="send" size={24} color="#8B5CF6" />
+                </View>
+                <Text className="text-white text-xl font-bold">
                   {currentAction?.title || "Enviar Datos"}
                 </Text>
               </View>
@@ -239,12 +249,12 @@ export default function WebhookPanel() {
                 setActiveMode(null);
                 setCurrentAction(null);
               }}>
-                <Ionicons name="close-circle" size={28} color="#666" />
+                <Ionicons name="close-circle" size={32} color="#666" />
               </TouchableOpacity>
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false}>
-              <Text className="text-gray-400 text-sm mb-4">
+              <Text className="text-gray-400 text-sm mb-5 leading-5">
                 Completa los campos que desees enviar al bot
               </Text>
 
@@ -266,6 +276,7 @@ export default function WebhookPanel() {
                 disabled={loading}
                 variant="primary"
                 size="lg"
+                icon="send"
               />
 
               <Button
@@ -276,6 +287,7 @@ export default function WebhookPanel() {
                 }}
                 variant="outline"
                 size="md"
+                icon="close"
               />
             </ScrollView>
           </View>

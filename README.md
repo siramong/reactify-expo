@@ -1,102 +1,201 @@
-> Edited for use in IDX on 07/09/12
+# Reactify Expo - Dashboard Moderno con React Native
 
-# Welcome to your Expo app 👋
+Una aplicación móvil moderna construida con **React Native**, **Expo**, **NativeWind** (Tailwind CSS), y **Supabase**, que demuestra integración en tiempo real con bases de datos y webhooks de Discord.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## 🚀 Características
 
-## Get started
+- **Dashboard en Tiempo Real**: Monitoreo de datos con actualizaciones automáticas
+- **Integración Supabase**: Base de datos PostgreSQL con subscripciones en tiempo real
+- **Webhooks Discord**: Integración con BotGhost para control de bots
+- **UI Moderna**: Interfaz elegante con NativeWind (Tailwind CSS)
+- **Animaciones Fluidas**: Transiciones y efectos visuales suaves
+- **TypeScript**: Tipado fuerte para mayor seguridad y mantenibilidad
 
-#### Android
+## 📋 Requisitos Previos
 
-Android previews are defined as a `workspace.onStart` hook and started as a vscode task when the workspace is opened/started.
+- Node.js (v14 o superior)
+- npm o yarn
+- Cuenta de Supabase (gratuita)
+- Cuenta de BotGhost (opcional, para webhooks)
 
-Note, if you can't find the task, either:
-- Rebuild the environment (using command palette: `IDX: Rebuild Environment`), or
-- Run `npm run android -- --tunnel` command manually run android and see the output in your terminal. The device should pick up this new command and switch to start displaying the output from it.
+## 🛠️ Instalación
 
-In the output of this command/task, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You'll also find options to open the app's developer menu, reload the app, and more.
-
-#### Web
-
-Web previews will be started and managred automatically. Use the toolbar to manually refresh.
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## BotGhost Webhook Configuration
-
-This app integrates with BotGhost webhooks to trigger Discord bot actions. Here's how to configure and extend webhook functionality:
-
-### Environment Variables
-
-Set these variables in your `.env` file (see `.env.example`):
-
-```
-EXPO_PUBLIC_BOTGHOST_GUILD_ID=YOUR_BOT_ID
-EXPO_PUBLIC_BOTGHOST_API_KEY=YOUR_API_KEY
-EXPO_PUBLIC_BOTGHOST_WEBHOOK_ID=YOUR_DEFAULT_WEBHOOK_EVENT_ID
+1. **Clonar el repositorio**
+```bash
+git clone https://github.com/siramong/reactify-expo.git
+cd reactify-expo
 ```
 
-### Adding New Webhook Events
+2. **Instalar dependencias**
+```bash
+npm install
+```
 
-To add new webhook event types:
+3. **Configurar variables de entorno**
 
-1. **Add Event ID to config** (`constants/config.ts`):
+Copia el archivo `.env.example` a `.env` y completa las variables:
+
+```env
+# Supabase Configuration
+EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+EXPO_PUBLIC_SUPABASE_KEY=your_supabase_service_role_key_or_anon_key
+
+# BotGhost Discord Webhook Configuration (Opcional)
+EXPO_PUBLIC_BOTGHOST_BOT_ID=your_botghost_bot_id
+EXPO_PUBLIC_BOTGHOST_API_KEY=your_botghost_api_key
+EXPO_PUBLIC_BOTGHOST_EVENT_ID=your_default_webhook_event_id
+```
+
+4. **Iniciar la aplicación**
+```bash
+npm start
+```
+
+## 📱 Ejecutar en Dispositivos
+
+### Android
+```bash
+npm run android
+```
+
+### iOS
+```bash
+npm run ios
+```
+
+### Web
+```bash
+npm run web
+```
+
+## 🗄️ Configuración de Supabase
+
+1. Crea un proyecto en [Supabase](https://supabase.com)
+2. Crea una tabla `coins` con la siguiente estructura:
+
+```sql
+create table coins (
+  id uuid default uuid_generate_v4() primary key,
+  userId text not null,
+  username text not null,
+  amount integer not null default 0,
+  curso text not null,
+  created_at timestamp with time zone default timezone('utc'::text, now())
+);
+```
+
+3. Copia la URL del proyecto y la API Key desde Settings > API
+
+## 🎮 Webhooks de Discord (Opcional)
+
+Para usar la funcionalidad de webhooks:
+
+1. Crea una cuenta en [BotGhost](https://botghost.com)
+2. Obtén tu Bot ID y API Key
+3. Configura eventos en BotGhost
+4. Añade las credenciales en `.env`
+
+### Añadir Nuevos Eventos
+
+En `constants/config.ts`:
+
 ```typescript
 export const WEBHOOK_EVENTS = {
-  DEFAULT: getEnvVar("EXPO_PUBLIC_BOTGHOST_WEBHOOK_ID"),
-  USER_JOINED: "your_user_joined_event_id",  // Add your event ID
+  DEFAULT: getEnvVar("EXPO_PUBLIC_BOTGHOST_EVENT_ID"),
+  USER_JOINED: "your_user_joined_event_id",
   COIN_EARNED: "your_coin_earned_event_id",
-  LEVEL_UP: "your_level_up_event_id",
-} as const;
+};
 ```
 
-2. **Add Action Button** (`components/webhooks/WebhookPanel.tsx`):
+En `components/webhooks/WebhookPanel.tsx`:
+
 ```typescript
 const WEBHOOK_ACTIONS: WebhookAction[] = [
-  // ... existing actions
   {
     eventType: "USER_JOINED",
     title: "Usuario Unido",
     description: "Notifica que un usuario se unió",
     icon: "person-add",
     color: "#10B981",
-    withData: false,  // true if action needs custom data fields
+    withData: false,
   },
 ];
 ```
 
-### Webhook Behavior
+## 📦 Stack Tecnológico
 
-- **Actions with `withData: false`**: Execute immediately when button is pressed
-- **Actions with `withData: true`**: Open modal for user to input custom fields
-- All EVENT_IDs are predefined by developers, users only execute actions
+- **[React Native](https://reactnative.dev/)** - Framework móvil multiplataforma
+- **[Expo](https://expo.dev/)** - Plataforma de desarrollo y deployment
+- **[NativeWind](https://www.nativewind.dev/)** - Tailwind CSS para React Native
+- **[Supabase](https://supabase.com/)** - Backend as a Service (PostgreSQL + Realtime)
+- **[TypeScript](https://www.typescriptlang.org/)** - Lenguaje tipado
+- **[React Navigation](https://reactnavigation.org/)** - Navegación en la app
 
-## Get a fresh project
+## 📂 Estructura del Proyecto
 
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+reactify-expo/
+├── app/                    # Pantallas principales (file-based routing)
+├── components/            # Componentes reutilizables
+│   ├── coins/            # Componentes de monedas
+│   ├── dashboard/        # Componentes del dashboard
+│   ├── ui/               # Componentes UI base
+│   └── webhooks/         # Componentes de webhooks
+├── constants/            # Constantes y configuración
+├── hooks/                # Custom React hooks
+├── services/             # Servicios (Supabase, webhooks)
+├── types/                # Definiciones de TypeScript
+└── utils/                # Utilidades y helpers
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🎨 Características de UI
 
-## Learn more
+- **Diseño Responsivo**: Adaptable a diferentes tamaños de pantalla
+- **Modo Oscuro**: Tema oscuro por defecto con colores vibrantes
+- **Animaciones**: Transiciones suaves con react-native-animatable
+- **Feedback Háptico**: Respuesta táctil en interacciones
+- **Iconos**: Ionicons de Expo Vector Icons
 
-To learn more about developing your project with Expo, look at the following resources:
+## 🔒 Seguridad
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Variables de entorno para credenciales sensibles
+- Validación de tipos con TypeScript
+- Manejo de errores robusto
+- API Keys nunca expuestas en el código
 
-## Join the community
+## 📝 Scripts Disponibles
 
-Join our community of developers creating universal apps.
+- `npm start` - Inicia Expo development server
+- `npm run android` - Ejecuta en Android
+- `npm run ios` - Ejecuta en iOS  
+- `npm run web` - Ejecuta en navegador
+- `npm run lint` - Ejecuta el linter
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🤝 Contribuir
+
+Las contribuciones son bienvenidas. Por favor:
+
+1. Fork el proyecto
+2. Crea tu Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push al Branch (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto es de código abierto y está disponible bajo la licencia MIT.
+
+## 📧 Contacto
+
+Para preguntas o sugerencias, abre un issue en el repositorio.
+
+## 🙏 Agradecimientos
+
+- [Expo Team](https://expo.dev/) por la excelente plataforma
+- [Supabase](https://supabase.com/) por el increíble backend
+- [NativeWind](https://www.nativewind.dev/) por Tailwind en React Native
+- Comunidad de React Native
+
+---
+
+**Hecho con ❤️ usando React Native + Expo + Supabase**
