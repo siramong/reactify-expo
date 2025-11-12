@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import AnimatedView from "@/components/ui/AnimatedView";
 import Header from "@/components/ui/Header";
 import InfoCard from "@/components/dashboard/InfoCard";
@@ -13,7 +14,7 @@ import type { Coin } from "@/types";
 import "@/global.css";
 
 export default function Index() {
-  const { coins } = useRealtimeCoins();
+  const { coins, loading, refresh } = useRealtimeCoins();
   const [selectedCurso, setSelectedCurso] = useState<string>("Todos");
 
   // Filtrar monedas según el curso seleccionado
@@ -44,11 +45,30 @@ export default function Index() {
       ListHeaderComponent={
         <AnimatedView>
           {/* Header e InfoCards */}
-          <Header
-            title="Dashboard"
-            subtitle="Monitorea las monedas en tiempo real"
-            icon="stats-chart"
-          />
+          <View className="flex-row items-center justify-between mb-4">
+            <View className="flex-1">
+              <Header
+                title="Dashboard"
+                subtitle="Monitorea las monedas"
+                icon="stats-chart"
+              />
+            </View>
+            <TouchableOpacity
+              onPress={refresh}
+              disabled={loading}
+              className="ml-3 bg-blue-600 rounded-xl px-4 py-3 flex-row items-center"
+              style={{ opacity: loading ? 0.6 : 1 }}
+            >
+              {loading ? (
+                <ActivityIndicator size="small" color="#ffffff" />
+              ) : (
+                <Ionicons name="refresh" size={20} color="#ffffff" />
+              )}
+              <Text className="text-white font-semibold ml-2">
+                {loading ? "Actualizando..." : "Actualizar"}
+              </Text>
+            </TouchableOpacity>
+          </View>
 
           {/* Quick Stats - New compact overview */}
           {coins.length > 0 && (
