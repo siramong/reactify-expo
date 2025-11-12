@@ -28,20 +28,20 @@ export default function Button({
     }
   };
 
-  const baseStyles = "rounded-xl flex-row items-center justify-center";
+  const baseStyles = "rounded-2xl flex-row items-center justify-center shadow-lg";
 
   const variantStyles = {
-    primary: "bg-react-blue",
-    secondary: "bg-dark-card border-2 border-react-blue",
-    outline: "border-2 border-react-blue",
-    success: "bg-green-500",
-    danger: "bg-red-500",
+    primary: "bg-blue-600",
+    secondary: "bg-dark-card border-2 border-blue-600",
+    outline: "border-2 border-blue-500 bg-blue-500/10",
+    success: "bg-green-600",
+    danger: "bg-red-600",
   };
 
   const sizeStyles = {
-    sm: "px-3 py-2",
-    md: "px-4 py-3",
-    lg: "px-6 py-4",
+    sm: "px-4 py-2.5",
+    md: "px-5 py-3.5",
+    lg: "px-7 py-4",
   };
 
   const textSizeStyles = {
@@ -51,11 +51,19 @@ export default function Button({
   };
 
   const textColorStyles = {
-    primary: "text-black",
-    secondary: "text-react-blue",
-    outline: "text-react-blue",
+    primary: "text-white",
+    secondary: "text-blue-500",
+    outline: "text-blue-400",
     success: "text-white",
     danger: "text-white",
+  };
+
+  const iconColor = {
+    primary: "#FFFFFF",
+    secondary: "#3B82F6",
+    outline: "#60A5FA",
+    success: "#FFFFFF",
+    danger: "#FFFFFF",
   };
 
   const opacity = disabled || loading ? 0.5 : 1;
@@ -64,30 +72,30 @@ export default function Button({
     <TouchableOpacity
       onPress={handlePress}
       className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} mt-3`}
-      style={{ opacity }}
-      activeOpacity={0.7}
+      style={{ 
+        opacity,
+        shadowColor: variant === "primary" ? "#3B82F6" : variant === "success" ? "#10B981" : variant === "danger" ? "#EF4444" : "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+      }}
+      activeOpacity={0.8}
       disabled={disabled || loading}
     >
       {loading ? (
-        <ActivityIndicator color={variant === "primary" || variant === "success" || variant === "danger" ? "#FFF" : "#61DAFB"} />
+        <ActivityIndicator color={iconColor[variant]} size={size === "sm" ? "small" : "small"} />
       ) : (
         <View className="flex-row items-center">
           {icon && (
             <Ionicons 
               name={icon} 
               size={size === "lg" ? 24 : size === "sm" ? 16 : 20} 
-              color={
-                variant === "primary"
-                  ? "#000"
-                  : variant === "success" || variant === "danger"
-                  ? "#FFF"
-                  : "#61DAFB"
-              }
-              className="mr-2"
+              color={iconColor[variant]}
+              style={{ marginRight: 8 }}
             />
           )}
           <Text
-            className={`${textColorStyles[variant]} ${textSizeStyles[size]} font-semibold`}
+            className={`${textColorStyles[variant]} ${textSizeStyles[size]} font-bold`}
           >
             {title}
           </Text>
